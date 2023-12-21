@@ -18,7 +18,7 @@ const router = createBrowserRouter([
   {
     path: "/task-management",
     element: <TaskDashboardLayout />,
-    children: [{ path: "/tast-management", element: <TaskManagement /> }],
+    children: [{ path: "/task-management", element: <TaskManagement /> }],
   },
 ]);
 
