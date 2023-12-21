@@ -16,7 +16,14 @@ import {
 
 export default function useMediaQueryMatcher() {
   const dispatch = useDispatch();
-  const mediaQueryState = useSelector((state) => state.mediaQuery);
+  const {
+    isMobile,
+    isSmallTablet,
+    isLargeTablet,
+    isComputer,
+    isLargeScreen,
+    isSmallScreen,
+  } = useSelector((state) => state.mediaQuery);
 
   const customSizeDetector = (size) => {
     const matches = window.matchMedia(size).matches;
@@ -78,5 +85,13 @@ export default function useMediaQueryMatcher() {
     setComputerMatched,
   ]);
 
-  return { mediaQueryState, customSizeDetector };
+  return {
+    isMobile,
+    isSmallTablet,
+    isLargeTablet,
+    isComputer,
+    isLargeScreen,
+    isSmallScreen,
+    customSizeDetector,
+  };
 }
