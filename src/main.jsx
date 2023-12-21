@@ -13,6 +13,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Slide } from "react-toastify";
 
+// primary Component
+import PrimaryComponent from "./components/PrimaryComponent/PrimaryComponent";
+
 // style import
 import "./index.css";
 
@@ -32,6 +35,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       pauseOnHover
       theme="light"
     />
-    <RouterProvider router={router}></RouterProvider>
+
+    {/* main app div*/}
+    <PrimaryComponent>
+      <RouterProvider router={router}></RouterProvider>
+    </PrimaryComponent>
   </React.StrictMode>
 );
