@@ -4,13 +4,17 @@ import PropTypes from "prop-types";
 // react router imports
 import { Link } from "react-router-dom";
 
-const BrandLogo = ({ logo, modifyClasses = "", imageModifyClasses = "" }) => {
+const BrandLogo = ({
+  imageSource,
+  modifyClasses = "",
+  imageModifyClasses = "",
+}) => {
   return (
     <div className={`w-max ${modifyClasses}`}>
       <Link className="block w-full h-full" to="/">
         <img
           className={`block h-9 ${imageModifyClasses}`}
-          src={logo}
+          src={imageSource}
           alt="Brand Logo"
         />
       </Link>
@@ -20,7 +24,7 @@ const BrandLogo = ({ logo, modifyClasses = "", imageModifyClasses = "" }) => {
 
 BrandLogo.propTypes = {
   modifyClasses: PropTypes.string,
-  logo: PropTypes.string,
+  imageSource: PropTypes.string,
   imageModifyClasses: PropTypes.string,
 };
 
