@@ -13,6 +13,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Slide } from "react-toastify";
 
+// redux-toolkit
+import { store } from "./app/store";
+import { Provider } from "react-redux";
+
 // primary Component
 import PrimaryComponent from "./components/PrimaryComponent/PrimaryComponent";
 
@@ -36,9 +40,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       theme="light"
     />
 
-    {/* main app div*/}
-    <PrimaryComponent>
-      <RouterProvider router={router}></RouterProvider>
-    </PrimaryComponent>
+    <Provider store={store}>
+      {/* main app div*/}
+      <PrimaryComponent>
+        <RouterProvider router={router}></RouterProvider>
+      </PrimaryComponent>
+    </Provider>
   </React.StrictMode>
 );
