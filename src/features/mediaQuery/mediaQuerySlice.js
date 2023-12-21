@@ -1,17 +1,17 @@
 //redux
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 //media queries
-const mobile = '(max-width: 480px)';
+const mobile = "(max-width: 480px)";
 export const mobileQuery = window.matchMedia(mobile);
 
-const smallTablet = '(min-width: 481px) and (max-width: 767px)';
+const smallTablet = "(min-width: 481px) and (max-width: 767px)";
 export const smallTabletQuery = window.matchMedia(smallTablet);
 
-const largeTablet = '(min-width: 768px) and (max-width: 1024px)';
+const largeTablet = "(min-width: 768px) and (max-width: 1024px)";
 export const largeTabletQuery = window.matchMedia(largeTablet);
 
-const computer = '(min-width: 1025px)';
+const computer = "(min-width: 1025px)";
 export const computerQuery = window.matchMedia(computer);
 
 const initialState = {
@@ -24,7 +24,7 @@ const initialState = {
 };
 
 const mediaQuerySlice = createSlice({
-  name: 'mediaQuery',
+  name: "mediaQuery",
   initialState,
   reducers: {
     mobileMatched: (state) => {
@@ -62,10 +62,12 @@ const mediaQuerySlice = createSlice({
   },
 });
 
-export default mediaQuerySlice.reducer;
+const { reducer, actions } = mediaQuerySlice;
+
+export default reducer;
 export const {
   mobileMatched,
   smallTabletMatched,
   largeTabletMatched,
   computerMatched,
-} = mediaQuerySlice.actions;
+} = actions;
