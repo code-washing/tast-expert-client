@@ -7,7 +7,7 @@ import DashboardHeader from "../shared/DashboardHeader/DashboardHeader";
 function TaskDashboardLayout() {
   return (
     <div>
-      <DashboardHeader />
+      <DashboardHeader modifyClasses="mb-sectionGapSm" />
       <Outlet />
     </div>
   );

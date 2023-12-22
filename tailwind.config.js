@@ -23,6 +23,7 @@ export default {
       boxShadow: {
         large: "0 10px 60px -5px rgba(0,0,0,0.3)",
         medium: "0 5px 40px -5px rgba(0,0,0,0.25)",
+        small: "0 3px 20px -3px rgba(0,0,0,0.2)",
       },
       transitionDuration: {
         default: "150ms",
@@ -48,5 +49,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };
