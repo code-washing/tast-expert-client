@@ -11,9 +11,11 @@ import { HashLink } from "react-router-hash-link";
 import MobileMenuCloseBtn from "../MobileMenuCloseBtn/MobileMenuCloseBtn";
 import BrandLogo from "../BrandLogo/BrandLogo";
 import MobileMenuBtn from "../MobileMenuBtn/MobileMenuBtn";
+import BackdropBlur from "../BackdropBlur/BackdropBlur";
 
 // hook
 import useMobileNavigation from "../../../hooks/useMobileNavigation";
+import useEscapeClose from "../../../hooks/useEscapeClose";
 
 // must import data here to make this component work
 import { navOptions } from "../../../uiData/navigationOptions";
@@ -25,14 +27,17 @@ const MobileNav = ({ modifyClasses = "" }) => {
   const { mobileNavOpen, openMobileNav, closeMobileNav } =
     useMobileNavigation();
 
+  useEscapeClose(closeMobileNav);
+
   // one single place for the link classes
   const linkClasses =
     "leading-[normal] px-2 py-1 rounded-default border-x-2 border-transparent hover:border-white text-white font-medium transition-all duration-200";
 
   return (
     //  mobile nav starts here
-    <div>
+    <div className="z-30">
       <MobileMenuBtn openNavFunction={openMobileNav} />
+      <BackdropBlur clickHandler={closeMobileNav} openState={mobileNavOpen} />
       <nav
         className={`block h-screen fixed top-0 right-0 w-full lg:w-[35%] translate-x-full origin-center transition-all duration-default z-40 ${
           mobileNavOpen ? "!translate-x-0" : ""
