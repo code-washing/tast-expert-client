@@ -17,11 +17,17 @@ import { Slide } from "react-toastify";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 
+// react query
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 // primary Component
 import PrimaryComponent from "./components/PrimaryComponent/PrimaryComponent";
 
 // style import
 import "./index.css";
+
+// react query client init
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -41,10 +47,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     />
 
     <Provider store={store}>
-      {/* main app div*/}
-      <PrimaryComponent>
-        <RouterProvider router={router}></RouterProvider>
-      </PrimaryComponent>
+      <QueryClientProvider client={queryClient}>
+        {/* main app div*/}
+        <PrimaryComponent>
+          <RouterProvider router={router}></RouterProvider>
+        </PrimaryComponent>
+      </QueryClientProvider>
     </Provider>
   </React.StrictMode>
 );
