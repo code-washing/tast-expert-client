@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const PrimaryComponent = ({ children }) => {
   return (
-    <div className="font-default max-w-[120rem] mx-auto overflow-x-hidden">
+    <div className="font-default min-h-screen flex flex-col max-w-[120rem] mx-auto overflow-x-hidden">
       {children}
     </div>
   );

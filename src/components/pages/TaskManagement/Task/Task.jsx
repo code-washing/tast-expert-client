@@ -66,7 +66,11 @@ const Task = ({ taskData }) => {
         }}
         className="block w-full cursor-pointer pt-1 pb-2"
       >
-        <IoChevronDownOutline className="text-lg w-max mx-auto" />
+        <IoChevronDownOutline
+          className={`text-lg w-max mx-auto transition-all duration-default ${
+            expanded ? "rotate-180" : "rotate-0"
+          }`}
+        />
       </button>
 
       <Accordion expanded={expanded}>
