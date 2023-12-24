@@ -6,6 +6,7 @@ import BrandLogo from "./../BrandLogo/BrandLogo";
 import InnerContainer from "../../containers/InnerContainer/InnerContainer";
 import MobileNav from "./../MobileNav/MobileNav";
 import UserProfile from "./../UserProfile/UserProfile";
+import LinkBtn from "../LinkBtn/LinkBtn";
 
 // hooks
 import useAuth from "./../../../hooks/useAuth";
@@ -31,6 +32,10 @@ const Header = ({ modifyClasses = "" }) => {
 
           {/* auth related options login/logout etc */}
           <div className="flex items-center gap-3 justify-self-end">
+            {!appLoading && !profileData && (
+              <LinkBtn text="Sign In" url="/auth/login" />
+            )}
+
             {/* if app is finished loading and user is truthy, show the userprofile */}
             {!appLoading && profileData && (
               <UserProfile profile={profileData} logoutFunction={logout} />
