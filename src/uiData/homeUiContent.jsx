@@ -13,9 +13,50 @@ export const homeTopBannerTextContent = {
 
 export const homeBannerImage = bannerImage;
 
-export const introductionData = {
-  fullname: "Nashiuz Zaman",
-  designation: "Web Application Developer",
+export const targetAudienceTextContent = {
+  heading: (
+    <>
+      Who is it <span className="text-primary">for</span>
+    </>
+  ),
+  subheading: "Anyone can use, really!",
   description:
-    "I'm a junior MERN stack developer who primarily develops fully responsive websites using React JS, Redux toolkit, Tanstack Query, Tailwind CSS, Sass, Firebase Authentication, Express JS, MongoDB and Mongoose. I also possess moderate server-side development skills in Vanilla PHP and MySQL. I am proficient in Object Oriented Programming for both JavaScript and PHP. My current goal is to learn Laravel framework after I've finished exploring Node JS, MongoDB and Mongoose.",
+    "It is a user-friendly and minimalist web app designed for basic task management in your everyday life. With its simplistic interface, Task Expert empowers users to organize and prioritize their daily tasks. Whether you're a professional, student, or anyone juggling multiple responsibilities.",
+  images: [
+    {
+      imageSource: "https://i.ibb.co/vXFwP01/writer.webp",
+      altText: "Writer",
+    },
+    {
+      imageSource: "https://i.ibb.co/x8vnxKN/doctor.webp",
+      altText: "Doctor",
+    },
+    {
+      imageSource: "https://i.ibb.co/8YnZ1tz/teacher.webp",
+      altText: "Teacher",
+    },
+    {
+      imageSource: "https://i.ibb.co/Br7vRhf/athlete.webp",
+      altText: "Athlete",
+    },
+    { imageSource: "https://i.ibb.co/PZ3c0WB/chef.webp", altText: "Chef" },
+    {
+      imageSource: "https://i.ibb.co/RSgBwFq/developer.webp",
+      altText: "Developer",
+    },
+    {
+      imageSource: "https://i.ibb.co/dbkDB06/engineer.webp",
+      altText: "Engineer",
+    },
+    {
+      imageSource: "https://i.ibb.co/GsX3mhL/musician.webp",
+      altText: "Musician",
+    },
+  ],
+};
+
+export const socialLinks = {
+  githubLink: "https://github.com/Nashiuz-Zaman",
+  linkedInLink: "https://www.linkedin.com/in/nashiuz-zaman",
+  facebookLink: "https://www.facebook.com/nashiuzzZaman",
 };
