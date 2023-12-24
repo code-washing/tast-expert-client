@@ -31,17 +31,18 @@ const MobileNav = ({ modifyClasses = "" }) => {
 
   // one single place for the link classes
   const linkClasses =
-    "leading-[normal] px-2 py-1 rounded-default border-x-2 border-transparent hover:border-white text-white font-medium transition-all duration-200";
+    "leading-[normal] px-2 py-1 rounded-default text-white hover:text-primaryLightest font-medium transition-all duration-200";
 
   return (
     //  mobile nav starts here
     <div className="z-30">
       <MobileMenuBtn openNavFunction={openMobileNav} />
       <BackdropBlur clickHandler={closeMobileNav} openState={mobileNavOpen} />
+
       <nav
         className={`block h-screen fixed top-0 right-0 w-full lg:w-[35%] translate-x-full origin-center transition-all duration-default z-40 ${
           mobileNavOpen ? "!translate-x-0" : ""
-        } text-center p-8 bg-gradient-to-br from-primaryDark to bg-primary ${modifyClasses}`}
+        } p-8 bg-gradient-to-br from-primaryDark to bg-primary ${modifyClasses}`}
       >
         {/* X cross button to close nav */}
         <MobileMenuCloseBtn clickHandler={closeMobileNav} />
@@ -49,16 +50,11 @@ const MobileNav = ({ modifyClasses = "" }) => {
         {/* brand logo part */}
         <BrandLogo
           imageSource={logoWhite}
-          modifyClasses="block w-max mx-auto mb-4"
+          modifyClasses="block w-max mr-auto mb-10"
         />
 
-        {/* banner h1 text goes here
-      <p className="text-2xl md:text-3xl font-bold text-white mb-10">
-        {homeTopBannerTextContent.heading}
-      </p> */}
-
         {/* regular part */}
-        <ul className="flex flex-col gap-3 mb-14">
+        <ul className="flex flex-col gap-3">
           {/* this part will be always shown */}
           {navOptions &&
             navOptions.map((option) => {
