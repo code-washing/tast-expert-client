@@ -41,7 +41,7 @@ const TaskCollectionContainer = ({ taskCollectionData }) => {
     >
       <h3 className="font-semibold text-2xl pb-elementGapSm">{name}</h3>
       <ul ref={listRef} className="space-y-4">
-        {tasksByStatus &&
+        {tasksByStatus.length > 0 &&
           tasksByStatus.map((task) => {
             return (
               <li key={task._id}>
@@ -49,6 +49,7 @@ const TaskCollectionContainer = ({ taskCollectionData }) => {
               </li>
             );
           })}
+        {tasksByStatus.length < 1 && <p>{`No ${name} Tasks`}</p>}
       </ul>
     </div>
   );
