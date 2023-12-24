@@ -13,14 +13,12 @@ import useAuth from "./../../../hooks/useAuth";
 // data
 import logoPrimary from "./../../../assets/websiteLogo/logo-primary.webp";
 
-const DashboardHeader = ({ modifyClasses = "" }) => {
+const Header = ({ modifyClasses = "" }) => {
   // extra user from auth
   const { profileData, appLoading, logout } = useAuth();
 
   return (
-    <header
-      className={`py-elementGapMd border-b border-lightBorder ${modifyClasses}`}
-    >
+    <header className={`py-elementGapMd ${modifyClasses}`}>
       <InnerContainer>
         <div className="grid grid-cols-2 items-center">
           {/* website logo */}
@@ -47,8 +45,8 @@ const DashboardHeader = ({ modifyClasses = "" }) => {
   );
 };
 
-DashboardHeader.propTypes = {
+Header.propTypes = {
   modifyClasses: PropTypes.string,
 };
 
-export default DashboardHeader;
+export default Header;
