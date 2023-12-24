@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import useAxios from "./useAxios";
 import useTaskSeparator from "./useTaskSeparator";
 import useToast from "./useToast";
+import useAuth from "./useAuth";
 
 // tanstack query
 import { useQuery } from "@tanstack/react-query";
@@ -19,6 +20,7 @@ import {
 } from "../features/task/taskSlice";
 
 const useTasks = () => {
+  const { profileData } = useAuth();
   const dispatch = useDispatch();
   const { tasks, separateTasksByStatus } = useSelector((store) => store.task);
   const { axiosCustom } = useAxios();
@@ -29,7 +31,7 @@ const useTasks = () => {
   const { data: allTasksData, isLoading } = useQuery({
     queryKey: ["allTasks"],
     queryFn: async () => {
-      const res = await axiosCustom.get("/tasks");
+      const res = await axiosCustom.get(`/tasks?email=${profileData.email}`);
       return res.data.data;
     },
   });
