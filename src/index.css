@@ -10,7 +10,7 @@ html {
 }
 
 ::selection {
-  @apply bg-primaryDark text-white;
+  @apply bg-primaryLightest text-textPrimary;
 }
 
 @keyframes rotate360 {
@@ -49,4 +49,21 @@ html {
 
 .form-animation {
   animation: riseUp 2s ease-in forwards;
+}
+
+@keyframes float-up-down {
+  0%,
+  100% {
+    transform: scale(0.97);
+    box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  50% {
+    transform: scale(1);
+    box-shadow: 0 0px 30px 0px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.float-animation {
+  animation: float-up-down 4s infinite linear;
 }
