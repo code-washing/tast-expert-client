@@ -4,6 +4,7 @@ import { useEffect } from "react";
 // hook
 import useAxios from "./useAxios";
 import useTaskSeparator from "./useTaskSeparator";
+import useToast from "./useToast";
 
 // tanstack query
 import { useQuery } from "@tanstack/react-query";
@@ -22,6 +23,7 @@ const useTasks = () => {
   const { tasks, separateTasksByStatus } = useSelector((store) => store.task);
   const { axiosCustom } = useAxios();
   const { getSeparateTasksObject } = useTaskSeparator();
+  const { showToast } = useToast();
 
   // tanstack fetch get request
   const { data: allTasksData, isLoading } = useQuery({
@@ -39,6 +41,7 @@ const useTasks = () => {
     );
 
     if (res.data.success) {
+      showToast("Task List Updated", "success");
       dispatch(setTasks(res.data.updatedTasks));
     }
     return;
@@ -48,6 +51,7 @@ const useTasks = () => {
     const res = await axiosCustom.delete(`/tasks/delete/${_id}`);
 
     if (res.data.success) {
+      showToast("Task Deleted", "success");
       dispatch(setTasks(res.data.updatedTasks));
     }
     return;

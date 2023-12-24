@@ -8,6 +8,9 @@ import {
   FaClipboardCheck,
 } from "react-icons/fa6";
 
+// components
+import SectionHeading from "../../../shared/SectionHeading/SectionHeading";
+
 const mainBoxStyles = "w-[10rem] aspect-square p-4 rounded-2xl bg-white";
 const iconBoxStyles = "p-2 w-max rounded-lg mb-elementGapSm";
 const iconStyles = "text-xl";
@@ -23,11 +26,10 @@ const TaskCount = ({ tasksData = null, modifyClasses = "" }) => {
 
   if (tasksData) {
     return (
-      <div
-        className={`w-max overflow-x-auto rounded-2xl bg-lightGray ${modifyClasses}`}
-      >
+      <div className={`w-max overflow-x-auto rounded-2xl ${modifyClasses}`}>
+        <SectionHeading text="Statistics" />
         {/* inner container */}
-        <div className="p-elementGapSm rounded-2xl flex gap-elementGapSm w-max">
+        <div className="p-elementGapSm bg-lightGray rounded-2xl flex gap-elementGapSm w-max">
           {/* to-do */}
           <div className={mainBoxStyles}>
             {/* icon */}

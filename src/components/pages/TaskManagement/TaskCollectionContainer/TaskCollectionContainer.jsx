@@ -13,7 +13,7 @@ const TaskCollectionContainer = ({ taskCollectionData }) => {
   const listRef = useRef(null);
   const { name, tasks: tasksByStatus } = taskCollectionData;
   const { draggedElementId } = useDragDrop();
-  const { dispatch, updateTaskStatus, tasks, updateTask } = useTasks();
+  const { dispatch, updateTaskStatus, updateTask } = useTasks();
 
   return (
     <div
