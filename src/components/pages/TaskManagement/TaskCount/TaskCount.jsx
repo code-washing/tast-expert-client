@@ -17,9 +17,9 @@ const numberTextStyles = "text-3xl font-extrabold inline-block mr-1";
 const afterNumberTextStyles = "inline-block";
 
 const TaskCount = ({ tasksData = null, modifyClasses = "" }) => {
-  const todoTasksCount = tasksData[0]?.tasks.length;
-  const ongoingTasksCount = tasksData[1]?.tasks.length;
-  const completedTaksCount = tasksData[2]?.tasks.length;
+  const todoTasksCount = tasksData[0]?.tasks?.length;
+  const ongoingTasksCount = tasksData[1]?.tasks?.length;
+  const completedTaksCount = tasksData[2]?.tasks?.length;
 
   if (tasksData) {
     return (

@@ -10,7 +10,7 @@ const TaskManagement = () => {
   const { separateTasksByStatus } = useTasks();
 
   return (
-    <div className="space-y-elementGapSm">
+    <div className="space-y-elementGapSm mb-sectionGapMd">
       {/* task count */}
       <section>
         <InnerContainer>
@@ -21,7 +21,7 @@ const TaskManagement = () => {
       {/* task count */}
       <section>
         <InnerContainer>
-          <AllTasksContainer />
+          <AllTasksContainer tasksData={separateTasksByStatus} />
         </InnerContainer>
       </section>
     </div>
