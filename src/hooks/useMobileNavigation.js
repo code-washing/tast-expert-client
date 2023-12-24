@@ -4,8 +4,8 @@ import { openNav, closeNav } from "../features/mobileNav/mobileNavSlice";
 
 const useMobileNavigation = () => {
   const mobileNavOpen = useSelector((store) => store.mobileNav.mobileNavOpen);
-
   const dispatch = useDispatch();
+
   const openMobileNav = () => {
     dispatch(openNav());
   };
