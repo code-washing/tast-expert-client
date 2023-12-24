@@ -11,7 +11,7 @@ const SectionHeading = ({ text, modifyClasses = "" }) => {
 };
 
 SectionHeading.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.node,
   modifyClasses: PropTypes.string,
 };
 

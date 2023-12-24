@@ -13,7 +13,7 @@ const PhotoGallery2 = ({ imagesData, modifyClasses = "" }) => {
             return (
               <div
                 key={idx}
-                className="w-full aspect-square relative overflow-hidden"
+                className="w-full aspect-square rounded-xl relative overflow-hidden"
               >
                 <img
                   className="w-full h-full object-cover"
