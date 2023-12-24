@@ -67,7 +67,7 @@ const UserProfile = ({ profile, logoutFunction }) => {
           </Link>
           <ButtonBtn
             onClickFunction={logoutFunction}
-            text="Log Out"
+            text="Sign Out"
             modifyClasses="!p-0 bg-transparent !text-textPrimary border-0 hover:bg-transparent !text-base !text-left !w-full hover:!text-primary font-bold"
           />
         </div>

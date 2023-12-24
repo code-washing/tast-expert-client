@@ -7,15 +7,17 @@ import { NavLink } from "react-router-dom";
 // react hashed link
 import { HashLink } from "react-router-hash-link";
 
-// shared components
+// components
 import MobileMenuCloseBtn from "../MobileMenuCloseBtn/MobileMenuCloseBtn";
 import BrandLogo from "../BrandLogo/BrandLogo";
 import MobileMenuBtn from "../MobileMenuBtn/MobileMenuBtn";
 import BackdropBlur from "../BackdropBlur/BackdropBlur";
+import ButtonBtn from "./../ButtonBtn/ButtonBtn";
 
 // hook
 import useMobileNavigation from "../../../hooks/useMobileNavigation";
 import useEscapeClose from "../../../hooks/useEscapeClose";
+import useAuth from "../../../hooks/useAuth";
 
 // must import data here to make this component work
 import { navOptions } from "../../../uiData/navigationOptions";
@@ -26,6 +28,7 @@ const MobileNav = ({ modifyClasses = "" }) => {
   // extract mobile nav functionality
   const { mobileNavOpen, openMobileNav, closeMobileNav } =
     useMobileNavigation();
+  const { profileData, logout } = useAuth();
 
   useEscapeClose(closeMobileNav);
 
@@ -40,7 +43,7 @@ const MobileNav = ({ modifyClasses = "" }) => {
       <BackdropBlur clickHandler={closeMobileNav} openState={mobileNavOpen} />
 
       <nav
-        className={`block h-screen fixed top-0 right-0 w-full lg:w-[35%] translate-x-full origin-center transition-all duration-default z-40 ${
+        className={`block h-screen fixed top-0 right-0 w-full sm:w-[50%] md:w-[40%] lg:w-[35%] 2xl:w-[20%] translate-x-full origin-center transition-all duration-default z-40 ${
           mobileNavOpen ? "!translate-x-0" : ""
         } p-8 bg-gradient-to-br from-primaryDark to bg-primary ${modifyClasses}`}
       >
@@ -81,6 +84,14 @@ const MobileNav = ({ modifyClasses = "" }) => {
               );
             })}
         </ul>
+        {profileData && (
+          <ButtonBtn
+            text="Sign Out"
+            colorTheme="outlined"
+            onClickFunction={logout}
+            modifyClasses="mt-elementGapSm"
+          />
+        )}
       </nav>
     </div>
   );
