@@ -42,6 +42,8 @@ const useAuth = () => {
     profileData,
     user,
     appLoading,
+    loginErrors,
+    registrationErrors,
   } = useSelector((store) => store.auth);
 
   // take auth actions
@@ -51,6 +53,8 @@ const useAuth = () => {
     setProfileData,
     setUser,
     setAppLoading,
+    setLoginErrors,
+    setRegistrationErrors,
   } = authActions;
 
   // showToast method
@@ -148,12 +152,16 @@ const useAuth = () => {
     setProfileData,
     setUser,
     setAppLoading,
+    setLoginErrors,
+    setRegistrationErrors,
     // auth properties
     userShouldExist,
     userAlreadyRegistered,
     profileData,
     user,
     appLoading,
+    loginErrors,
+    registrationErrors,
     // firebase auth related functions
     signup,
     loginGoogle,

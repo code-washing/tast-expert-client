@@ -7,6 +7,8 @@ const initialState = {
   profileData: null,
   user: null,
   appLoading: true,
+  loginErrors: [],
+  registrationErrors: [],
 };
 
 const authSlice = createSlice({
@@ -27,6 +29,12 @@ const authSlice = createSlice({
     },
     setAppLoading: (state, { payload }) => {
       state.appLoading = payload;
+    },
+    setLoginErrors: (state, { payload }) => {
+      state.loginErrors = payload;
+    },
+    setRegistrationErrors: (state, { payload }) => {
+      state.registrationErrors = payload;
     },
   },
 });

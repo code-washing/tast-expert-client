@@ -7,7 +7,7 @@ import Header from "../shared/Header/Header";
 function RootLayout() {
   return (
     <div>
-      <Header />
+      <Header modifyClasses="mb-sectionGapMd" />
       <Outlet />
     </div>
   );
