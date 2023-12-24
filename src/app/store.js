@@ -5,6 +5,7 @@ import mediaQueryReducer from "./../features/mediaQuery/mediaQuerySlice";
 import authReducer from "./../features/auth/authSlice";
 import mobileNavReducer from "./../features/mobileNav/mobileNavSlice";
 import taskReducer from "./../features/task/taskSlice";
+import dragDropReducer from "./../features/dragDrop/dragDropSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     auth: authReducer,
     mobileNav: mobileNavReducer,
     task: taskReducer,
+    dragDrop: dragDropReducer,
   },
 });
