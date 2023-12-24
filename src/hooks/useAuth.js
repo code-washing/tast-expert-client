@@ -1,5 +1,5 @@
 // react
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../features/auth/authSlice";
 
 // axios
-import axios from "axios";
+import useAxios from "./useAxios";
 
 // firebase imports
 import app from "../firebase/firebase.config";
@@ -40,18 +40,19 @@ const useAuth = () => {
     userShouldExist,
     userAlreadyRegistered,
     profileData,
-    user,
     appLoading,
     loginErrors,
     registrationErrors,
   } = useSelector((store) => store.auth);
+
+  const [user, setUser] = useState(null);
+  const { axiosCustom } = useAxios();
 
   // take auth actions
   const {
     setUserShouldExist,
     setUserAlreadyRegistered,
     setProfileData,
-    setUser,
     setAppLoading,
     setLoginErrors,
     setRegistrationErrors,
@@ -71,20 +72,23 @@ const useAuth = () => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, async (curUser) => {
       if (curUser) {
-        dispatch(setUser(curUser));
+        setUser(curUser);
 
         // this code should only run when the website is refreshed
         if (!profileData && userShouldExist) {
           // check which firebase user is logged in, send the email to database and bring their profile data
-          const userCheckResponse = await axios.post("/login", {
+          const userCheckResponse = await axiosCustom.post("/login", {
             email: curUser.email,
           });
 
           dispatch(setProfileData(userCheckResponse.data.user));
           dispatch(setAppLoading(false));
+        } else {
+          setUser(null);
+          dispatch(setAppLoading(false));
         }
       } else {
-        dispatch(setUser(null));
+        setUser(null);
         dispatch(setAppLoading(false));
       }
     });
@@ -100,6 +104,7 @@ const useAuth = () => {
     setAppLoading,
     setProfileData,
     setUser,
+    axiosCustom,
   ]);
 
   // login with google function
@@ -135,7 +140,7 @@ const useAuth = () => {
       .then(() => {
         dispatch(setProfileData(null));
         dispatch(setUserShouldExist(false));
-        dispatch(setUser(null));
+        setUser(null);
         localStorage.removeItem("token");
         dispatch(setAppLoading(false));
         showToast("Logged Out Successfully", "success");
