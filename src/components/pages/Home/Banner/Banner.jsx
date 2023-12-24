@@ -20,7 +20,7 @@ const BannerAndCarousel = () => {
 
       {/* banner image part */}
       <div>
-        <div className="w-full h-full shadow-small">
+        <div className="w-full h-full shadow-medium">
           <img src={homeBannerImage} alt="Banner Image" />
         </div>
       </div>
