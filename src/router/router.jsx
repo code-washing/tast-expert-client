@@ -6,6 +6,9 @@ import RootLayout from "../components/layouts/RootLayout";
 import TaskDashboardLayout from "../components/layouts/TaskDashboardLayout";
 import AuthLayout from "../components/layouts/AuthLayout";
 
+// route
+import PrivateRoute from "./../components/routes/PrivateRoute/PrivateRoute";
+
 // page components
 import Home from "../components/pages/Home/Home";
 import TaskManagement from "../components/pages/TaskManagement/TaskManagement";
@@ -22,7 +25,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/task-management",
-    element: <TaskDashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <TaskDashboardLayout />
+      </PrivateRoute>
+    ),
     children: [{ path: "/task-management", element: <TaskManagement /> }],
   },
   {
