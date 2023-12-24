@@ -3,7 +3,7 @@ import { useCallback } from "react";
 
 const useTaskSeparator = () => {
   const findTasksByStatus = (allTasks, status) => {
-    return allTasks.filter((task) => task.status === status);
+    return allTasks?.filter((task) => task.status === status);
   };
 
   const getSeparateTasksObject = useCallback((allTasks) => {
