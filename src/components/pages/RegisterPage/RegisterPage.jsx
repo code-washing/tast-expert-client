@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 
 // components
-import SectionHeading from "../../shared/SectionHeading/SectionHeading";
 import RegistrationFormWithImage from "./RegistrationFormWithImage/RegistrationFormWithImage";
 
 // hook
@@ -24,15 +23,6 @@ const RegisterPage = () => {
   return (
     <div className="min-h-screen flex justify-center items-center py-sectionGapSm md:py-sectionGapMd lg:py-sectionGapSm">
       <div>
-        <SectionHeading
-          modifyClasses="mb-elementGapMd text-center"
-          text={
-            <>
-              Sign up on <span className="text-primary">Task Expert</span>
-            </>
-          }
-        />
-
         <div>
           <RegistrationFormWithImage
             imageSource={authImage}

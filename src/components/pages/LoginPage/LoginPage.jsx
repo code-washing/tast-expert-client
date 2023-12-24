@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 
 // components
-import SectionHeading from "../../shared/SectionHeading/SectionHeading";
 import InnerContainer from "../../containers/InnerContainer/InnerContainer";
 import LoginFormWithImage from "./LoginFormWithImage/LoginFormWithImage";
 
@@ -27,11 +26,6 @@ const LoginPage = () => {
     <div className="min-h-screen flex justify-center items-center py-sectionGapSm md:py-sectionGapMd lg:py-sectionGapSm">
       <InnerContainer>
         <div>
-          <SectionHeading
-            modifyClasses="mb-elementGapMd text-center"
-            text="Welcome Back"
-          />
-
           <div>
             <LoginFormWithImage
               imageSource={authImage}
