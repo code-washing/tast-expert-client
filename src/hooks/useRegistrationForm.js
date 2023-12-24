@@ -29,7 +29,7 @@ const useRegistrationForm = () => {
   } = useAuth();
 
   // axios extraction
-  const axiosCustom = useAxios();
+  const { axiosCustom } = useAxios();
 
   // // extract functions from login and registration context
   // const { registrationInfo, setRegistrationInfo } =
@@ -119,9 +119,12 @@ const useRegistrationForm = () => {
     // if there are no basic errors code will reach this line
     try {
       dispatch(setAppLoading(true));
-      const userExistsResponse = await axiosCustom.post("/checkUserExists", {
-        email: dataObject.email,
-      });
+      const userExistsResponse = await axiosCustom.post(
+        "/users/checkExistence",
+        {
+          email: dataObject.email,
+        }
+      );
 
       // if user exists
       if (userExistsResponse.data.userExists) {
