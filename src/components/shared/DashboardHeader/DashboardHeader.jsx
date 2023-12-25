@@ -22,9 +22,9 @@ const DashboardHeader = ({ modifyClasses = "" }) => {
       className={`py-elementGapMd border-b border-lightBorder ${modifyClasses}`}
     >
       <InnerContainer>
-        <div className="grid grid-cols-2 items-center">
+        <div className="grid grid-cols-1 gap-elementGapMd sm:gap-0 sm:grid-cols-2 items-center">
           {/* website logo */}
-          <div>
+          <div className="justify-self-center sm:justify-self-start">
             <BrandLogo
               imageSource={logoPrimary}
               imageModifyClasses="h-[3rem]"
@@ -32,7 +32,7 @@ const DashboardHeader = ({ modifyClasses = "" }) => {
           </div>
 
           {/* auth related options login/logout etc */}
-          <div className="flex items-center gap-3 justify-self-end">
+          <div className="flex items-center gap-3 justify-self-center sm:justify-self-end">
             {/* if app is finished loading and user is truthy, show the userprofile */}
             {!appLoading && profileData && (
               <UserProfile profile={profileData} logoutFunction={logout} />

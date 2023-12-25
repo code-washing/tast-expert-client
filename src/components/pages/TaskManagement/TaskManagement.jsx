@@ -7,6 +7,8 @@ import CreateTaskForm from "./CreateTaskForm/CreateTaskForm";
 
 // hook
 import useTasks from "../../../hooks/useTasks";
+import useAuth from "../../../hooks/useAuth";
+import ProfileBasicInfo from "./../../shared/ProfileBasicInfo/ProfileBasicInfo";
 
 const TaskManagement = () => {
   const {
@@ -15,16 +17,29 @@ const TaskManagement = () => {
     openCreateForm,
     closeCreateForm,
   } = useTasks();
+  const { profileData } = useAuth();
 
   return (
     <div className="space-y-elementGapSm mb-sectionGapMd">
       {/* task count */}
       <section>
         <InnerContainer>
-          <div className="grid grid-cols-1 gap-elementGapSm">
-            <TaskCount tasksData={separateTasksByStatus} />
+          <div className="flex flex-col-reverse gap-elementGapMd xl:flex-row xl:justify-between xl:items-center">
             <div>
-              <CreateBtn text="add new task" onClickFunction={openCreateForm} />
+              <TaskCount tasksData={separateTasksByStatus} />
+              <div className="mt-elementGapSm">
+                <CreateBtn
+                  text="add new task"
+                  onClickFunction={openCreateForm}
+                />
+              </div>
+            </div>
+
+            <div>
+              <ProfileBasicInfo
+                infoObject={profileData}
+                modifyClasses="w-max"
+              />
             </div>
           </div>
         </InnerContainer>
