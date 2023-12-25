@@ -1,5 +1,6 @@
 // react
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -44,6 +45,7 @@ const useAuth = () => {
     loginErrors,
     registrationErrors,
   } = useSelector((store) => store.auth);
+  const navigate = useNavigate();
 
   const [user, setUser] = useState(null);
   const { axiosCustom } = useAxios();
@@ -146,6 +148,7 @@ const useAuth = () => {
         showToast("Logged Out Successfully", "success");
       })
       .catch((error) => console.error(error));
+    navigate("/");
   };
 
   return {

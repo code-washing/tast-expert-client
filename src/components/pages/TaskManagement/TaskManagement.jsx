@@ -24,7 +24,7 @@ const TaskManagement = () => {
       {/* task count */}
       <section>
         <InnerContainer>
-          <div className="flex flex-col-reverse gap-elementGapMd xl:flex-row xl:justify-between xl:items-center">
+          <div className="flex flex-col-reverse gap-elementGapMd">
             <div>
               <TaskCount tasksData={separateTasksByStatus} />
               <div className="mt-elementGapSm">
