@@ -17,12 +17,15 @@ import {
   setTasks,
   updateTaskStatus,
   setSeparateTasksByStatus,
+  setCreateFormOpen,
 } from "../features/task/taskSlice";
 
 const useTasks = () => {
   const { profileData } = useAuth();
   const dispatch = useDispatch();
-  const { tasks, separateTasksByStatus } = useSelector((store) => store.task);
+  const { tasks, separateTasksByStatus, createFormOpen } = useSelector(
+    (store) => store.task
+  );
   const { axiosCustom } = useAxios();
   const { getSeparateTasksObject } = useTaskSeparator();
   const { showToast } = useToast();
@@ -35,6 +38,25 @@ const useTasks = () => {
       return res.data.data;
     },
   });
+
+  const openCreateForm = () => {
+    dispatch(setCreateFormOpen(true));
+  };
+
+  const closeCreateForm = () => {
+    dispatch(setCreateFormOpen(false));
+  };
+
+  const createTask = async (newTaskInfo) => {
+    const res = await axiosCustom.post(`/tasks`, newTaskInfo);
+
+    if (res.data.success) {
+      showToast("New Todo Added", "success");
+      dispatch(setTasks(res.data.updatedTasks));
+      dispatch(setCreateFormOpen(false));
+    }
+    return;
+  };
 
   const updateTask = async (updateInfo) => {
     const res = await axiosCustom.patch(
@@ -72,13 +94,18 @@ const useTasks = () => {
   }, [dispatch, tasks, getSeparateTasksObject]);
 
   return {
+    dispatch,
     tasks,
     separateTasksByStatus,
-    dispatch,
     updateTaskStatus,
     setTasks,
     updateTask,
     deleteTask,
+    createTask,
+    createFormOpen,
+    setCreateFormOpen,
+    openCreateForm,
+    closeCreateForm,
   };
 };
 

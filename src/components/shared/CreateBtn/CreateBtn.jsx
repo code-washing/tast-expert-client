@@ -1,7 +1,10 @@
 // react imports
 import PropTypes from "prop-types";
 
-const ButtonBtn = ({
+// react icon
+import { IoAdd } from "react-icons/io5";
+
+const CreateBtn = ({
   text,
   onClickFunction = null,
   colorTheme = "",
@@ -27,7 +30,7 @@ const ButtonBtn = ({
   const blackClasses =
     "bg-blackLight border border-blackLight hover:bg-textPrimary hover:border-textPrimary text-white";
 
-  const allClasses = `block w-max capitalize transition-all duration-default rounded-full text-center px-6 py-2 3xl:text-xl 2xl:py-3 ${modifyClasses}`;
+  const allClasses = `flex items-center gap-2 capitalize w-max transition-all duration-default rounded-full text-center px-6 py-2 3xl:text-xl 2xl:py-3 ${modifyClasses}`;
 
   return (
     <button
@@ -43,12 +46,12 @@ const ButtonBtn = ({
           : primaryClasses
       } ${allClasses}`}
     >
-      {text}
+      <IoAdd /> <span>{text}</span>
     </button>
   );
 };
 
-ButtonBtn.propTypes = {
+CreateBtn.propTypes = {
   text: PropTypes.string.isRequired,
   onClickFunction: PropTypes.func,
   colorTheme: PropTypes.string,
@@ -56,4 +59,4 @@ ButtonBtn.propTypes = {
   theme: PropTypes.string,
 };
 
-export default ButtonBtn;
+export default CreateBtn;

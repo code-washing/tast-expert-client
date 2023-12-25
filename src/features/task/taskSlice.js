@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   tasks: [],
   separateTasksByStatus: [],
+  createFormOpen: false,
 };
 
 const taskSlice = createSlice({
@@ -15,6 +16,9 @@ const taskSlice = createSlice({
     },
     setSeparateTasksByStatus: (state, { payload }) => {
       state.separateTasksByStatus = payload;
+    },
+    setCreateFormOpen: (state, { payload }) => {
+      state.createFormOpen = payload;
     },
     updateTaskStatus: (state, { payload }) => {
       const indexToChange = state.tasks.findIndex(
@@ -36,4 +40,9 @@ const taskSlice = createSlice({
 const { actions, reducer } = taskSlice;
 
 export default reducer;
-export const { setTasks, updateTaskStatus, setSeparateTasksByStatus } = actions;
+export const {
+  setTasks,
+  updateTaskStatus,
+  setSeparateTasksByStatus,
+  setCreateFormOpen,
+} = actions;

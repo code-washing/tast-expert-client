@@ -11,25 +11,27 @@ import {
 // components
 import SectionHeading from "../../../shared/SectionHeading/SectionHeading";
 
-const mainBoxStyles = "w-[10rem] aspect-square p-4 rounded-2xl bg-white";
-const iconBoxStyles = "p-2 w-max rounded-lg mb-elementGapSm";
-const iconStyles = "text-xl";
-const textBoxStyles = "font-semibold";
-const statusTextStyles = "font-medium text-gray-400";
-const numberTextStyles = "text-3xl font-extrabold inline-block mr-1";
-const afterNumberTextStyles = "inline-block";
-
 const TaskCount = ({ tasksData = null, modifyClasses = "" }) => {
   const todoTasksCount = tasksData[0]?.tasks?.length;
   const ongoingTasksCount = tasksData[1]?.tasks?.length;
   const completedTaksCount = tasksData[2]?.tasks?.length;
+
+  // styles
+  const mainBoxStyles = "w-[10rem] aspect-square p-4 rounded-2xl bg-white";
+  const iconBoxStyles = "p-2 w-max rounded-lg mb-elementGapSm";
+  const iconStyles = "text-xl";
+  const textBoxStyles = "font-semibold";
+  const statusTextStyles = "font-medium text-gray-400";
+  const numberTextStyles = "text-3xl font-extrabold inline-block mr-1";
+  const afterNumberTextStyles = "inline-block";
 
   if (tasksData) {
     return (
       <div className={`w-max overflow-x-auto rounded-2xl ${modifyClasses}`}>
         <SectionHeading text="Statistics" />
         {/* inner container */}
-        <div className="p-elementGapSm bg-lightGray rounded-2xl flex gap-elementGapSm w-max">
+
+        <div className="p-elementGapSm bg-lightGray rounded-2xl flex flex-col sm:flex-row gap-elementGapSm w-max">
           {/* to-do */}
           <div className={mainBoxStyles}>
             {/* icon */}
