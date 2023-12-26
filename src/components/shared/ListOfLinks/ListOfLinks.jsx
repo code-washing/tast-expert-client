@@ -10,7 +10,7 @@ const ListOfLinks = ({
   modifyClasses = "",
   linksModifyClasses = "",
 }) => {
-  const linkClasses = `transition all duration-200 text-white hover:text-primary hover:underline ${linksModifyClasses}`;
+  const linkClasses = `transition all duration-200 text-white hover:underline ${linksModifyClasses}`;
 
   return (
     <ul className={`flex flex-col gap-1 ${modifyClasses}`}>
