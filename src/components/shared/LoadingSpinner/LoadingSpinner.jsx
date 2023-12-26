@@ -12,7 +12,7 @@ const LoadingSpinner = ({
   textSizeClasses = null,
   onlyLoader = false,
 }) => {
-  const textSize = textSizeClasses ?? "text-2xl";
+  const textSize = textSizeClasses ?? "text-3xl";
 
   return (
     <div
