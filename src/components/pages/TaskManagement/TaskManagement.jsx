@@ -7,17 +7,22 @@ import CreateTaskForm from "./CreateTaskForm/CreateTaskForm";
 
 // hook
 import useTasks from "../../../hooks/useTasks";
-import useAuth from "../../../hooks/useAuth";
-import ProfileBasicInfo from "./../../shared/ProfileBasicInfo/ProfileBasicInfo";
+
+import useTaskSeparator from "../../../hooks/useTaskSeparator";
+import useTasksQuery from "../../../hooks/useTasksQuery";
+
+// redux
+import { useSelector } from "react-redux";
 
 const TaskManagement = () => {
-  const {
-    separateTasksByStatus,
-    createFormOpen,
-    openCreateForm,
-    closeCreateForm,
-  } = useTasks();
-  const { profileData } = useAuth();
+  const { createFormOpen, openCreateForm, closeCreateForm, sortToLatest } =
+    useTasks();
+  useTasksQuery();
+  const { tasks } = useSelector((store) => store.task);
+
+  const { getSeparateTasksObject } = useTaskSeparator();
+
+  const tasksByStatus = tasks && getSeparateTasksObject(sortToLatest(tasks));
 
   return (
     <div className="space-y-elementGapSm mb-sectionGapMd">
@@ -26,20 +31,13 @@ const TaskManagement = () => {
         <InnerContainer>
           <div className="flex flex-col-reverse gap-elementGapMd">
             <div>
-              <TaskCount tasksData={separateTasksByStatus} />
+              <TaskCount tasksData={tasksByStatus} />
               <div className="mt-elementGapSm">
                 <CreateBtn
                   text="add new task"
                   onClickFunction={openCreateForm}
                 />
               </div>
-            </div>
-
-            <div>
-              <ProfileBasicInfo
-                infoObject={profileData}
-                modifyClasses="w-max"
-              />
             </div>
           </div>
         </InnerContainer>
@@ -54,7 +52,7 @@ const TaskManagement = () => {
       {/* task count */}
       <section>
         <InnerContainer>
-          <AllTasksContainer tasksData={separateTasksByStatus} />
+          <AllTasksContainer tasksData={tasksByStatus} />
         </InnerContainer>
       </section>
     </div>

@@ -3,27 +3,32 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 
 // react icons
-import { IoTrashBinSharp, IoChevronDownOutline } from "react-icons/io5";
+import { IoTrashSharp, IoChevronDownOutline } from "react-icons/io5";
+
+// component
 import Accordion from "../../../shared/Accordion/Accordion";
 
 // hook
 import useDragDrop from "../../../../hooks/useDragDrop";
 import useTasks from "../../../../hooks/useTasks";
 
+// redux
+import { useDispatch } from "react-redux";
+
 const Task = ({ taskData }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const { _id, title, description, deadline, priority } = taskData;
-  const { dispatch, setDraggedElementId, setInitialCollection } = useDragDrop();
-
+  const { setDraggedElementId, setInitialCollection } = useDragDrop();
+  const dispatch = useDispatch();
   const { deleteTask } = useTasks();
 
   const priorityColor =
     priority === "high"
-      ? "bg-red-700"
+      ? "bg-red-500"
       : priority === "moderate"
-      ? "bg-orange-700"
-      : "bg-green-700";
+      ? "bg-orange-500"
+      : "bg-green-500";
 
   return (
     <div
@@ -37,7 +42,8 @@ const Task = ({ taskData }) => {
         );
         dispatch(setDraggedElementId(_id));
       }}
-      onDragEnd={() => {
+      onDragEnd={(e) => {
+        e.preventDefault();
         setIsDragging(false);
         dispatch(setDraggedElementId(null));
       }}
@@ -46,17 +52,27 @@ const Task = ({ taskData }) => {
       }`}
     >
       {/* title and delete button */}
-      <div className="flex items-center justify-between mb-2 mt-4">
+      <div className="flex items-center justify-between mb-1 mt-4">
         <p className="font-semibold text-sm">{title}</p>
+
+        {/* delete button */}
         <button
+          title="Delete Task"
           onClick={() => {
             deleteTask(_id);
           }}
           aria-label="Delete task"
-          title="Delete Task"
+          className="flex justify-center items-center px-[5px] py-[4px] group hover:bg-lightGray transition-all duration-default rounded-md"
         >
-          <IoTrashBinSharp className="text-red-700 text-base" />
+          <IoTrashSharp className="text-red-600 text-base" />
         </button>
+      </div>
+      {/* priority high/moderate/low */}
+      <div
+        className={`capitalize w-max py-[1px] px-3 text-white rounded-full text-[0.7rem] ${priorityColor}`}
+        title={`${priority} priority task`}
+      >
+        {priority}
       </div>
 
       {/* expand Button */}
@@ -80,17 +96,11 @@ const Task = ({ taskData }) => {
           <p className="font-medium">{description.substring(0, 55)}...</p>
         </div>
 
-        {/* deadline and priority */}
+        {/* deadline */}
         <div className="flex items-center justify-between mt-auto mb-4">
           <p>
             <span className="font-semibold">Deadline:</span> {deadline}
           </p>
-          <div
-            className={`capitalize w-max py-[1px] px-3 text-white rounded-full text-[0.7rem] ${priorityColor}`}
-            title={`${priority} priority task`}
-          >
-            {priority}
-          </div>
         </div>
       </Accordion>
     </div>
