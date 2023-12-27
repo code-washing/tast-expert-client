@@ -1,5 +1,6 @@
 // react
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 // components
 import InnerContainer from "../../containers/InnerContainer/InnerContainer";
@@ -7,14 +8,15 @@ import LoginFormWithImage from "./LoginFormWithImage/LoginFormWithImage";
 
 // hooks
 import useAuth from "../../../hooks/useAuth";
-// import useLoginRegistrationProvider from "../../../../hooks/useLoginRegistrationProvider";
+import useRedirectDashboard from "../../../hooks/useRedirectDashboard";
 
 // data
 import { authImage } from "./../../../uiData/authUiContent";
 
 const LoginPage = () => {
-  const { appLoading, dispatch, setLoginErrors } = useAuth();
-  // const { setLoginInfo } = useLoginRegistrationProvider();
+  const { appLoading, dispatch, setLoginErrors, profileData } = useAuth();
+  const { state } = useLocation();
+  useRedirectDashboard(profileData, state);
 
   useEffect(() => {
     return () => {
