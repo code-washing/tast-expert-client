@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 // components
 import InnerContainer from "../../containers/InnerContainer/InnerContainer";
 import BrandLogo from "../BrandLogo/BrandLogo";
-import Address from "../Address/Address";
 import ListOfLinks from "../ListOfLinks/ListOfLinks";
 
 // react icons
@@ -17,7 +16,6 @@ import {
 
 // data
 import logoWhite from "./../../../assets/websiteLogo/logo-white.webp";
-import { addressData } from "../../../uiData/addressData";
 import { footerOptions, currentYear } from "../../../uiData/footerData";
 
 const Footer = () => {
@@ -25,22 +23,17 @@ const Footer = () => {
     "text-4xl text-white hover:text-primary transition-all duration-150 cursor-pointer";
 
   return (
-    <footer className="bg-gradient-to-r from-primary to-primaryDark pt-sectionGapMd pb-sectionGapSm relative">
+    <footer className="bg-gradient-to-r from-black to-black pt-sectionGapMd pb-sectionGapSm relative">
       <InnerContainer>
         {/* top part */}
 
-        {/* website logo */}
-        <BrandLogo
-          imageSource={logoWhite}
-          modifyClasses="mx-auto mb-sectionGapSm"
-          imageModifyClasses="lg:h-[3rem]"
-        />
-
         {/* address and links */}
-        <div className="mb-14 md:mb-sectionGapMd grid grid-cols-1 md:grid-cols-3">
-          <Address
-            addressData={addressData}
-            modifyClasses="text-center md:text-left mb-14 md:mb-0"
+        <div className="mb-14 grid grid-cols-1 md:grid-cols-3">
+          {/* website logo */}
+          <BrandLogo
+            imageSource={logoWhite}
+            modifyClasses="mx-auto mb-sectionGapSm"
+            imageModifyClasses="lg:h-[3rem]"
           />
 
           {/* list of links */}
