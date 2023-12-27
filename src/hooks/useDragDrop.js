@@ -1,5 +1,5 @@
 // redux
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   setInitialCollection,
   setTargetCollection,
@@ -7,14 +7,12 @@ import {
 } from "../features/dragDrop/dragDropSlice";
 
 const useDragDrop = () => {
-  const dispatch = useDispatch();
   const { draggedElementId, targetCollection, initialCollection } = useSelector(
     (store) => store.dragDrop
   );
 
   // console.log(draggedElementId, initialCollection);
   return {
-    dispatch,
     draggedElementId,
     targetCollection,
     initialCollection,
