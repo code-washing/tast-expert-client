@@ -12,9 +12,9 @@ import {
 import SectionHeading from "../../../shared/SectionHeading/SectionHeading";
 
 const TaskCount = ({ tasksData = null, modifyClasses = "" }) => {
-  const todoTasksCount = tasksData[0]?.tasks?.length;
-  const ongoingTasksCount = tasksData[1]?.tasks?.length;
-  const completedTaksCount = tasksData[2]?.tasks?.length;
+  const todoTasksCount = tasksData && tasksData[0]?.tasks?.length;
+  const ongoingTasksCount = tasksData && tasksData[1]?.tasks?.length;
+  const completedTaksCount = tasksData && tasksData[2]?.tasks?.length;
 
   // styles
   const mainBoxStyles = "w-[10rem] aspect-square p-4 rounded-2xl bg-white";
