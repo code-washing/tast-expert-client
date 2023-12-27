@@ -88,7 +88,10 @@ const MobileNav = ({ modifyClasses = "" }) => {
           <ButtonBtn
             text="Sign Out"
             colorTheme="outlined"
-            onClickFunction={logout}
+            onClickFunction={() => {
+              logout();
+              closeMobileNav();
+            }}
             modifyClasses="mt-elementGapSm"
           />
         )}
