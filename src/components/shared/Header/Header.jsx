@@ -17,7 +17,6 @@ const Header = ({ modifyClasses = "" }) => {
   // extra user from auth
   const { profileData, appLoading } = useAuth();
 
-  console.log(appLoading, profileData);
   return (
     <header className={`py-elementGapMd ${modifyClasses}`}>
       <InnerContainer>
