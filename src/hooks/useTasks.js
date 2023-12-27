@@ -1,43 +1,16 @@
-// react
-import { useEffect } from "react";
-
 // hook
 import useAxios from "./useAxios";
-import useTaskSeparator from "./useTaskSeparator";
 import useToast from "./useToast";
-import useAuth from "./useAuth";
-
-// tanstack query
-import { useQuery } from "@tanstack/react-query";
 
 // redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import {
-  setTasks,
-  updateTaskStatus,
-  setSeparateTasksByStatus,
-  setCreateFormOpen,
-} from "../features/task/taskSlice";
+import { setTasks, setCreateFormOpen } from "../features/task/taskSlice";
 
 const useTasks = () => {
-  const { profileData } = useAuth();
   const dispatch = useDispatch();
-  const { tasks, separateTasksByStatus, createFormOpen } = useSelector(
-    (store) => store.task
-  );
   const { axiosCustom } = useAxios();
-  const { getSeparateTasksObject } = useTaskSeparator();
   const { showToast } = useToast();
-
-  // tanstack fetch get request
-  const { data: allTasksData, isLoading } = useQuery({
-    queryKey: ["allTasks"],
-    queryFn: async () => {
-      const res = await axiosCustom.get(`/tasks?email=${profileData.email}`);
-      return res.data.data;
-    },
-  });
 
   const openCreateForm = () => {
     dispatch(setCreateFormOpen(true));
@@ -49,61 +22,72 @@ const useTasks = () => {
 
   const createTask = async (newTaskInfo) => {
     const res = await axiosCustom.post(`/tasks`, newTaskInfo);
-
     if (res.data.success) {
-      showToast("New Todo Added", "success");
-      dispatch(setTasks(res.data.updatedTasks));
+      showToast("Todo Added Successfully", "success");
       dispatch(setCreateFormOpen(false));
     }
     return;
   };
 
-  const updateTask = async (updateInfo) => {
-    const res = await axiosCustom.patch(
-      `/tasks/update/${updateInfo._id}`,
-      updateInfo
+  const sortToLatest = (arr) => {
+    const sortedArr = [...arr].sort(
+      (a, b) => new Date(a.lastUpdated) - new Date(b.lastUpdated)
     );
 
+    return sortedArr;
+  };
+
+  const updateTasks = async (e, draggedTaskId, tasks) => {
+    //  find the container id to move to (todo/ongoing/completed)
+    const status = e.target.closest(".drop-target").id.toLowerCase();
+    const lastUpdated = new Date().toISOString();
+
+    // create a new array
+    const updatedTasks = tasks.map((task) => {
+      return task._id === draggedTaskId
+        ? { ...task, status, lastUpdated }
+        : task;
+    });
+
+    // update redux task state with new array
+    dispatch(setTasks(updatedTasks));
+
+    // send the update information to the database
+    const updatedTask = {
+      _id: draggedTaskId,
+      status,
+      lastUpdated,
+    };
+
+    const res = await axiosCustom.patch(
+      `/tasks/update/${draggedTaskId}`,
+      updatedTask
+    );
+
+    // show success toast on success
     if (res.data.success) {
-      showToast("Task List Updated", "success");
-      dispatch(setTasks(res.data.updatedTasks));
+      showToast("Tasks Updated Successfully", "success");
+      // dispatch(setTasks(res.data.updatedTasks));
+      return;
     }
-    return;
   };
 
   const deleteTask = async (_id) => {
     const res = await axiosCustom.delete(`/tasks/delete/${_id}`);
-
     if (res.data.success) {
-      showToast("Task Deleted", "success");
+      showToast("Task Deleted Successfully", "success");
       dispatch(setTasks(res.data.updatedTasks));
     }
     return;
   };
 
   // move remote data to ui state
-  useEffect(() => {
-    if (!isLoading) {
-      dispatch(setTasks(allTasksData));
-    }
-  }, [dispatch, allTasksData, isLoading]);
-
-  // get separateTasksByStatus state from tasks state
-  useEffect(() => {
-    dispatch(setSeparateTasksByStatus(getSeparateTasksObject(tasks)));
-  }, [dispatch, tasks, getSeparateTasksObject]);
 
   return {
-    dispatch,
-    tasks,
-    separateTasksByStatus,
-    updateTaskStatus,
-    setTasks,
-    updateTask,
+    sortToLatest,
+    updateTasks,
     deleteTask,
     createTask,
-    createFormOpen,
-    setCreateFormOpen,
     openCreateForm,
     closeCreateForm,
   };
