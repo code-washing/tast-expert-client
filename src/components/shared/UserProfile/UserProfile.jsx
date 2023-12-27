@@ -1,6 +1,6 @@
 // react imports
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // component
 import ButtonBtn from "./../ButtonBtn/ButtonBtn";
@@ -14,6 +14,7 @@ import { FaUserCircle } from "react-icons/fa";
 const UserProfile = ({ profile, logoutFunction }) => {
   // hover state
   const [showInfoPanel, setShowInfoPanel] = useState(false);
+  const infoRef = useRef(null);
 
   // function to control info panel
   const handleShowInfoPanel = () => {
@@ -21,6 +22,30 @@ const UserProfile = ({ profile, logoutFunction }) => {
       return !prev;
     });
   };
+
+  // closing the profile div when clicked outside of it
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest(".custom-focus")) {
+        setShowInfoPanel(false);
+      }
+    };
+
+    let timer;
+    if (showInfoPanel) {
+      timer = setTimeout(() => {
+        window.addEventListener("click", handleClickOutside);
+        clearTimeout(timer);
+      }, 300);
+    } else {
+      window.removeEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, [showInfoPanel]);
 
   // declare name and photo variables
   let name, image;
@@ -54,7 +79,8 @@ const UserProfile = ({ profile, logoutFunction }) => {
 
         {/* positioned div for display name */}
         <div
-          className={`rounded-defaultLg w-max bg-white border border-[#e5e5e5] shadow-xl p-4 absolute top-0 right-0 -translate-x-[1.5rem] translate-y-[2rem] transition-all duration-150 space-y-5 text-left cursor-default ${
+          ref={infoRef}
+          className={`custom-focus rounded-defaultLg w-max bg-white border border-[#e5e5e5] shadow-xl p-4 absolute top-0 right-0 -translate-x-[1.5rem] translate-y-[2rem] transition-all duration-150 space-y-5 text-left cursor-default ${
             showInfoPanel ? "opacity-100 visible" : "opacity-0 collapse"
           }`}
         >
