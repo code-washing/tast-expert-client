@@ -72,7 +72,7 @@ const useTasks = () => {
     // show success toast on success
     if (res.data.success) {
       showToast("Tasks Updated Successfully", "success");
-      // dispatch(setTasks(res.data.updatedTasks));
+      dispatch(setTasks(res.data.updatedTasks));
       return;
     }
   };
