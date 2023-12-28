@@ -11,7 +11,6 @@ import { HashLink } from "react-router-hash-link";
 import MobileMenuCloseBtn from "../MobileMenuCloseBtn/MobileMenuCloseBtn";
 import BrandLogo from "../BrandLogo/BrandLogo";
 import MobileMenuBtn from "../MobileMenuBtn/MobileMenuBtn";
-import BackdropBlur from "../BackdropBlur/BackdropBlur";
 import ButtonBtn from "./../ButtonBtn/ButtonBtn";
 
 // hook
@@ -30,6 +29,7 @@ const MobileNav = ({ modifyClasses = "" }) => {
     useMobileNavigation();
   const { profileData, logout } = useAuth();
 
+  // add escape key close functionality
   useEscapeClose(closeMobileNav);
 
   // one single place for the link classes
@@ -40,7 +40,6 @@ const MobileNav = ({ modifyClasses = "" }) => {
     //  mobile nav starts here
     <div className="z-30">
       <MobileMenuBtn openNavFunction={openMobileNav} />
-      <BackdropBlur clickHandler={closeMobileNav} openState={mobileNavOpen} />
 
       <nav
         className={`block h-screen fixed top-0 right-0 w-full sm:w-[50%] md:w-[40%] lg:w-[35%] 2xl:w-[20%] translate-x-full origin-center transition-all duration-default z-40 ${
