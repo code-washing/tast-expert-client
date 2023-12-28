@@ -7,13 +7,15 @@ import { AiOutlineClose } from "react-icons/ai";
 // shared components
 import SectionHeading from "../../../shared/SectionHeading/SectionHeading";
 import ButtonBtn from "../../../shared/ButtonBtn/ButtonBtn";
-import BackdropBlur from "./../../../shared/BackdropBlur/BackdropBlur";
 
 // custom hooks
 import useAuth from "./../../../../hooks/useAuth";
 import useTasks from "../../../../hooks/useTasks";
+import useEscapeClose from "../../../../hooks/useEscapeClose";
 
 const CreateTaskForm = ({ openState = false, closeFunction = null }) => {
+  // add support for escape button close
+  useEscapeClose(closeFunction);
   // form element css classes
   const labelClasses = "block mb-2 text-sm lg:text-lg";
   const inputClasses =
@@ -51,13 +53,10 @@ const CreateTaskForm = ({ openState = false, closeFunction = null }) => {
 
   return (
     <div>
-      {/* blur overlay in the page */}
-      <BackdropBlur openState={openState} clickHandler={closeFunction} />
-
       {/* THE FORM */}
       <div
         className={`${
-          openState ? "scale-100" : "scale-0"
+          openState ? "opacity-100 visible" : "opacity-0 collapse"
         } shadow-large origin-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-8 bg-white z-40 lg:rounded-default w-full sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] duration-default`}
       >
         {/* close button */}
