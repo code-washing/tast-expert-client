@@ -15,10 +15,9 @@ import useTasksQuery from "../../../hooks/useTasksQuery";
 import { useSelector } from "react-redux";
 
 const TaskManagement = () => {
-  const { createFormOpen, openCreateForm, closeCreateForm, sortToLatest } =
-    useTasks();
+  const { openCreateForm, closeCreateForm, sortToLatest } = useTasks();
   useTasksQuery();
-  const { tasks } = useSelector((store) => store.task);
+  const { tasks, createFormOpen } = useSelector((store) => store.task);
 
   const { getSeparateTasksObject } = useTaskSeparator();
 
