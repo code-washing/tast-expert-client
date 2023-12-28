@@ -28,7 +28,8 @@ const useTasks = () => {
     const res = await axiosCustom.post(`/tasks`, newTaskInfo);
     if (res.data.success) {
       showToast("Todo Added Successfully", "success");
-      dispatch(setCreateFormOpen(false));
+      closeCreateForm();
+      dispatch(setTasks(res.data.updatedTasks));
     }
     return;
   };
@@ -84,8 +85,6 @@ const useTasks = () => {
     }
     return;
   };
-
-  // move remote data to ui state
 
   return {
     sortToLatest,
