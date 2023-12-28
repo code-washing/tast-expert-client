@@ -38,7 +38,7 @@ const MobileNav = ({ modifyClasses = "" }) => {
 
   return (
     //  mobile nav starts here
-    <div className="z-30">
+    <div>
       <MobileMenuBtn openNavFunction={openMobileNav} />
 
       <nav

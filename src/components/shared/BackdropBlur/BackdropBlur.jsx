@@ -8,7 +8,7 @@ const BackdropBlur = ({
   return (
     <div
       onClick={clickHandler}
-      className={`fixed w-screen top-0 left-0 h-screen backdrop-blur-sm transition-all duration-default ${
+      className={`fixed w-screen top-0 left-0 h-screen z-20 backdrop-blur-sm transition-all duration-default ${
         openState ? "opacity-100 visible" : "opacity-0 collapse"
       } ${modifyClasses}`}
     ></div>
