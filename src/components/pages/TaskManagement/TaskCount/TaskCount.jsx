@@ -10,8 +10,13 @@ import {
 
 // components
 import SectionHeading from "../../../shared/SectionHeading/SectionHeading";
+import CreateBtn from "./../../../shared/CreateBtn/CreateBtn";
+
+// hooks
+import useTasks from "./../../../../hooks/useTasks";
 
 const TaskCount = ({ tasksData = null, modifyClasses = "" }) => {
+  const { openCreateForm } = useTasks();
   const todoTasksCount = tasksData && tasksData[0]?.tasks?.length;
   const ongoingTasksCount = tasksData && tasksData[1]?.tasks?.length;
   const completedTaksCount = tasksData && tasksData[2]?.tasks?.length;
@@ -27,52 +32,58 @@ const TaskCount = ({ tasksData = null, modifyClasses = "" }) => {
 
   if (tasksData) {
     return (
-      <div className={`w-max overflow-x-auto rounded-2xl ${modifyClasses}`}>
+      <div className={`${modifyClasses}`}>
         <SectionHeading text="Statistics" />
         {/* inner container */}
 
-        <div className="p-elementGapSm bg-lightGray rounded-2xl flex flex-col sm:flex-row gap-elementGapSm w-max">
-          {/* to-do */}
-          <div className={mainBoxStyles}>
-            {/* icon */}
-            <div className={`bg-red-100 ${iconBoxStyles}`}>
-              <FaClipboardList className={`text-red-400 ${iconStyles}`} />
+        <div className="flex flex-col gap-elementGapMd lg:flex-row items-start lg:justify-between">
+          <div className="overflow-x-auto rounded-2xl p-elementGapSm bg-lightGray flex flex-col sm:flex-row gap-elementGapSm w-max">
+            {/* to-do */}
+            <div className={mainBoxStyles}>
+              {/* icon */}
+              <div className={`bg-red-100 ${iconBoxStyles}`}>
+                <FaClipboardList className={`text-red-400 ${iconStyles}`} />
+              </div>
+
+              <div className={textBoxStyles}>
+                <p className={statusTextStyles}>Remaining</p>
+                <p className={numberTextStyles}>{todoTasksCount}</p>
+                <p className={afterNumberTextStyles}>Task</p>
+              </div>
             </div>
 
-            <div className={textBoxStyles}>
-              <p className={statusTextStyles}>Remaining</p>
-              <p className={numberTextStyles}>{todoTasksCount}</p>
-              <p className={afterNumberTextStyles}>Task</p>
+            {/* on going */}
+            <div className={mainBoxStyles}>
+              {/* icon */}
+              <div className={`bg-yellow-100 ${iconBoxStyles}`}>
+                <FaClockRotateLeft
+                  className={`text-yellow-400 ${iconStyles}`}
+                />
+              </div>
+
+              <div className={textBoxStyles}>
+                <p className={statusTextStyles}>Ongoing</p>
+                <p className={numberTextStyles}>{ongoingTasksCount}</p>
+                <p className={afterNumberTextStyles}>Task</p>
+              </div>
+            </div>
+
+            {/* done */}
+            <div className={mainBoxStyles}>
+              {/* icon */}
+              <div className={`bg-green-100 ${iconBoxStyles}`}>
+                <FaClipboardCheck className={`text-green-400 ${iconStyles}`} />
+              </div>
+
+              <div className={textBoxStyles}>
+                <p className={statusTextStyles}>Completed</p>
+                <p className={numberTextStyles}>{completedTaksCount}</p>
+                <p className={afterNumberTextStyles}>Task</p>
+              </div>
             </div>
           </div>
 
-          {/* on going */}
-          <div className={mainBoxStyles}>
-            {/* icon */}
-            <div className={`bg-yellow-100 ${iconBoxStyles}`}>
-              <FaClockRotateLeft className={`text-yellow-400 ${iconStyles}`} />
-            </div>
-
-            <div className={textBoxStyles}>
-              <p className={statusTextStyles}>Ongoing</p>
-              <p className={numberTextStyles}>{ongoingTasksCount}</p>
-              <p className={afterNumberTextStyles}>Task</p>
-            </div>
-          </div>
-
-          {/* done */}
-          <div className={mainBoxStyles}>
-            {/* icon */}
-            <div className={`bg-green-100 ${iconBoxStyles}`}>
-              <FaClipboardCheck className={`text-green-400 ${iconStyles}`} />
-            </div>
-
-            <div className={textBoxStyles}>
-              <p className={statusTextStyles}>Completed</p>
-              <p className={numberTextStyles}>{completedTaksCount}</p>
-              <p className={afterNumberTextStyles}>Task</p>
-            </div>
-          </div>
+          <CreateBtn text="Add New task" onClickFunction={openCreateForm} />
         </div>
       </div>
     );

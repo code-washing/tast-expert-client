@@ -2,7 +2,6 @@
 import TaskCount from "./TaskCount/TaskCount";
 import InnerContainer from "./../../containers/InnerContainer/InnerContainer";
 import AllTasksContainer from "./AllTasksContainer/AllTasksContainer";
-import CreateBtn from "../../shared/CreateBtn/CreateBtn";
 import CreateTaskForm from "./CreateTaskForm/CreateTaskForm";
 
 // hook
@@ -15,7 +14,7 @@ import useTasksQuery from "../../../hooks/useTasksQuery";
 import { useSelector } from "react-redux";
 
 const TaskManagement = () => {
-  const { openCreateForm, closeCreateForm, sortToLatest } = useTasks();
+  const { closeCreateForm, sortToLatest } = useTasks();
   useTasksQuery();
   const { tasks, createFormOpen } = useSelector((store) => store.task);
 
@@ -29,15 +28,7 @@ const TaskManagement = () => {
       <section>
         <InnerContainer>
           <div className="flex flex-col-reverse gap-elementGapMd">
-            <div>
-              <TaskCount tasksData={tasksByStatus} />
-              <div className="mt-elementGapSm">
-                <CreateBtn
-                  text="add new task"
-                  onClickFunction={openCreateForm}
-                />
-              </div>
-            </div>
+            <TaskCount tasksData={tasksByStatus} />
           </div>
         </InnerContainer>
       </section>

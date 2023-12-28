@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 
 // react icon
-import { IoAdd } from "react-icons/io5";
+import { IoMdCreate } from "react-icons/io";
 
 const CreateBtn = ({
   text,
@@ -46,7 +46,8 @@ const CreateBtn = ({
           : primaryClasses
       } ${allClasses}`}
     >
-      <IoAdd /> <span>{text}</span>
+      <IoMdCreate />
+      <span>{text}</span>
     </button>
   );
 };
