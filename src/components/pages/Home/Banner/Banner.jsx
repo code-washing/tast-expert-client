@@ -1,11 +1,10 @@
 // components
 import BannerText from "../../../shared/BannerText/BannerText";
+import Video from "./../../../shared/Video/Video";
 
 // data
-import {
-  homeTopBannerTextContent,
-  homeBannerImage,
-} from "../../../../uiData/homeUiContent";
+import { homeTopBannerTextContent } from "../../../../uiData/homeUiContent";
+import bannerVideo from "./../../../../assets/video/banner-video.mp4";
 
 const BannerAndCarousel = () => {
   // extract heading and subheading
@@ -21,7 +20,7 @@ const BannerAndCarousel = () => {
       {/* banner image part */}
       <div>
         <div className="w-full h-full shadow-medium">
-          <img src={homeBannerImage} alt="Banner Image" />
+          <Video videoSource={bannerVideo} soundBtn={false} />
         </div>
       </div>
     </div>
