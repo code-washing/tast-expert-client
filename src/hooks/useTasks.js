@@ -4,8 +4,10 @@ import useToast from "./useToast";
 
 // redux
 import { useDispatch } from "react-redux";
-
 import { setTasks, setCreateFormOpen } from "../features/task/taskSlice";
+
+// backdropslice methods
+import { setOpen } from "./../features/backdrop/backdropSlice";
 
 const useTasks = () => {
   const dispatch = useDispatch();
@@ -14,10 +16,12 @@ const useTasks = () => {
 
   const openCreateForm = () => {
     dispatch(setCreateFormOpen(true));
+    dispatch(setOpen(true));
   };
 
   const closeCreateForm = () => {
     dispatch(setCreateFormOpen(false));
+    dispatch(setOpen(false));
   };
 
   const createTask = async (newTaskInfo) => {
