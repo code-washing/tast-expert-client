@@ -37,7 +37,9 @@ const TaskCollectionContainer = ({ taskCollectionData }) => {
               </li>
             );
           })}
-        {tasksByStatus?.length < 1 && <p>{`No ${name} Tasks`}</p>}
+        {tasksByStatus?.length < 1 && (
+          <p className="text-primary font-semibold text-center py-elementGapSm">{`No ${name} Tasks`}</p>
+        )}
       </ul>
     </div>
   );

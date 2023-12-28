@@ -26,7 +26,7 @@ const CreateTaskForm = ({ openState = false, closeFunction = null }) => {
   const { createTask } = useTasks();
 
   // all form values come from their inputs but date comes from the state
-  const handleCreateAssignment = (e) => {
+  const handleCreateTask = (e) => {
     e.preventDefault();
 
     // take all the necessary values
@@ -37,7 +37,7 @@ const CreateTaskForm = ({ openState = false, closeFunction = null }) => {
     const priority = form.priority.value;
     const date = new Date().toISOString();
 
-    // assignment data summarized
+    // Task data summarized
     const taskData = {
       title,
       description,
@@ -49,6 +49,7 @@ const CreateTaskForm = ({ openState = false, closeFunction = null }) => {
     };
 
     createTask(taskData);
+    form.reset();
   };
 
   return (
@@ -71,7 +72,7 @@ const CreateTaskForm = ({ openState = false, closeFunction = null }) => {
         />
 
         {/* form starts here */}
-        <form onSubmit={handleCreateAssignment} className="block space-y-4">
+        <form onSubmit={handleCreateTask} className="block space-y-4">
           {/* title */}
           <div>
             <label className={labelClasses}>Title</label>
@@ -111,7 +112,7 @@ const CreateTaskForm = ({ openState = false, closeFunction = null }) => {
               >
                 <option value="easy">Low</option>
                 <option value="medium">Moderate</option>
-                <option value="hard">High</option>
+                <option value="high">High</option>
               </select>
             </div>
           </div>
