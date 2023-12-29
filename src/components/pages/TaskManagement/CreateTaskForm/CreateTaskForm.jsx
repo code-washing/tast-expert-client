@@ -110,8 +110,8 @@ const CreateTaskForm = ({ openState = false, closeFunction = null }) => {
                 className={`block w-full text-sm lg:text-base rounded-default p-[5px] md:p-[8.5px] lg:p-[9px] bg-lightGray`}
                 name="priority"
               >
-                <option value="easy">Low</option>
-                <option value="medium">Moderate</option>
+                <option value="low">Low</option>
+                <option value="moderate">Moderate</option>
                 <option value="high">High</option>
               </select>
             </div>
