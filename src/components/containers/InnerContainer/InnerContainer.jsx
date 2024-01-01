@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const InnerContainer = ({ children }) => {
   return (
-    <div className="max-w-[90rem] 3xl:max-w-full px-6 md:px-8 lg:px-12 2xl:px-0 mx-auto 3xl:px-[7rem]">
+    <div className="max-w-[90rem] 3xl:max-w-full px-3 xsm:px-6 md:px-8 lg:px-12 2xl:px-0 mx-auto 3xl:px-[7rem]">
       {children}
     </div>
   );
