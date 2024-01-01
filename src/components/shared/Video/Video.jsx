@@ -5,13 +5,13 @@ import PropTypes from "prop-types";
 // icons
 import { IoVolumeHigh, IoVolumeMute } from "react-icons/io5";
 
-const Video = ({ videoSource, soundBtn = true }) => {
+const Video = ({ videoSource, soundBtn = true, modifyClasses = "" }) => {
   const [sound, setSound] = useState(false);
 
   /* https://smoothshadows.com/#djEsMSw1LDAuMDgsMjQsMzIsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwy */
 
   return (
-    <div className="w-full h-full aspect-[16/20] md:aspect-[16/10] relative">
+    <div className={`w-full h-full aspect-[16/10] relative ${modifyClasses}`}>
       <video
         className="w-full h-full object-cover"
         muted={sound ? false : true}
@@ -46,6 +46,7 @@ const Video = ({ videoSource, soundBtn = true }) => {
 Video.propTypes = {
   videoSource: PropTypes.string,
   soundBtn: PropTypes.bool,
+  modifyClasses: PropTypes.string,
 };
 
 export default Video;
