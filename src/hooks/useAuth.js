@@ -65,7 +65,7 @@ const useAuth = () => {
 
   // if there is a jwt token in localstorage then user should exist
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("tokenExists")) {
       dispatch(setUserShouldExist(true));
     }
   }, [dispatch, setUserShouldExist]);
@@ -143,7 +143,7 @@ const useAuth = () => {
         dispatch(setProfileData(null));
         dispatch(setUserShouldExist(false));
         setUser(null);
-        localStorage.removeItem("token");
+        localStorage.removeItem("tokenExists");
         dispatch(setAppLoading(false));
         showToast("Logged Out Successfully", "success");
       })

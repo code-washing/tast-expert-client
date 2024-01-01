@@ -170,7 +170,10 @@ const useRegistrationForm = () => {
             if (userCreationResponse.data.success) {
               dispatch(setProfileData(userCreationResponse.data.user));
               dispatch(setUserShouldExist(true));
-              localStorage.setItem("token", userCreationResponse.data.token);
+              localStorage.setItem(
+                "tokenExists",
+                userCreationResponse.data.tokenExists
+              );
               navigate("/");
               dispatch(setAppLoading(false));
             }
