@@ -1,6 +1,7 @@
 // hook
 import useAxios from "./useAxios";
 import useToast from "./useToast";
+import useAuth from "./useAuth";
 
 // redux
 import { useDispatch } from "react-redux";
@@ -13,6 +14,7 @@ const useTasks = () => {
   const dispatch = useDispatch();
   const { axiosCustom } = useAxios();
   const { showToast } = useToast();
+  const { profileData } = useAuth();
 
   const openCreateForm = () => {
     dispatch(setCreateFormOpen(true));
@@ -78,7 +80,9 @@ const useTasks = () => {
   };
 
   const deleteTask = async (_id) => {
-    const res = await axiosCustom.delete(`/tasks/delete/${_id}`);
+    const res = await axiosCustom.delete(
+      `/tasks/delete/${_id}?email=${profileData.email}`
+    );
     if (res.data.success) {
       showToast("Task Deleted Successfully", "success");
       dispatch(setTasks(res.data.updatedTasks));
