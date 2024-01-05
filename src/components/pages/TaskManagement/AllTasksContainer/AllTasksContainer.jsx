@@ -1,10 +1,16 @@
+// react
 import PropTypes from "prop-types";
+
+// hooks
+import useDragDropProvider from "./../../../../hooks/useDragDropProvider";
 
 // component
 import TaskCollectionContainer from "../TaskCollectionContainer/TaskCollectionContainer";
 import SectionHeading from "../../../shared/SectionHeading/SectionHeading";
 
 const AllTasksContainer = ({ tasksData, modifyClasses = "" }) => {
+  const { containerRefs } = useDragDropProvider();
+
   return (
     <div className={`${modifyClasses}`}>
       <SectionHeading text="Tasks" />
@@ -14,6 +20,7 @@ const AllTasksContainer = ({ tasksData, modifyClasses = "" }) => {
           tasksData.map((singleCollection) => {
             return (
               <TaskCollectionContainer
+                ref={containerRefs}
                 key={singleCollection.id}
                 taskCollectionData={singleCollection}
               />
