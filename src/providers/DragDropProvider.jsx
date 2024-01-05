@@ -47,7 +47,12 @@ const DragDropProvider = ({ children }) => {
       );
     });
 
-    console.log(currentDropContainer);
+    return currentDropContainer.id;
+  };
+
+  const updateTasks = (e, containers) => {
+    const newContainer = findDropContainer(e, containers);
+    console.log(newContainer);
   };
 
   // const findDropContainer = (e, containers) => {
@@ -81,6 +86,7 @@ const DragDropProvider = ({ children }) => {
     findPositions,
     findDropContainer,
     setDraggedElId,
+    updateTasks,
   };
 
   return (
