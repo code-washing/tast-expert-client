@@ -11,6 +11,7 @@ import Accordion from "../../../shared/Accordion/Accordion";
 // hook
 import useDragDrop from "../../../../hooks/useDragDrop";
 import useTasks from "../../../../hooks/useTasks";
+import useDragDropProvider from "./../../../../hooks/useDragDropProvider";
 
 // redux
 import { useDispatch } from "react-redux";
@@ -22,6 +23,8 @@ const Task = ({ taskData }) => {
   const { setDraggedElementId, setInitialCollection } = useDragDrop();
   const dispatch = useDispatch();
   const { deleteTask } = useTasks();
+  const { findDropContainer, setDraggedElId, containers } =
+    useDragDropProvider();
 
   const priorityColor =
     priority === "high"
@@ -33,6 +36,25 @@ const Task = ({ taskData }) => {
   return (
     <div
       draggable={true}
+      onTouchStart={(e) => {
+        setIsDragging(true);
+        dispatch(
+          setInitialCollection(
+            e.target.closest(".drop-target").id.toLowerCase()
+          )
+        );
+
+        setDraggedElId(_id);
+      }}
+      onTouchEnd={(e) => {
+        e.preventDefault();
+        // console.log(e);
+
+        findDropContainer(e, containers);
+
+        setIsDragging(false);
+        dispatch(setDraggedElementId(null));
+      }}
       onDragStart={(e) => {
         setIsDragging(true);
         dispatch(
