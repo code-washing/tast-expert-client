@@ -8,7 +8,6 @@ import Task from "../Task/Task";
 
 // hook
 import useTasks from "../../../../hooks/useTasks";
-import useDragDropProvider from "../../../../hooks/useDragDropProvider";
 
 // redux
 import { useSelector } from "react-redux";
@@ -19,13 +18,14 @@ const TaskCollectionContainer = forwardRef(({ taskCollectionData }, ref) => {
   const { updateTasks } = useTasks();
   const { draggedElementId } = useSelector((store) => store.dragDrop);
   const { tasks } = useSelector((store) => store.task);
-  const { collectPositions } = useDragDropProvider();
 
   return (
     <div
       // collect the container ids and positions of the container on the screen
       ref={(el) => {
-        collectPositions(ref, el);
+        if (!ref.current.includes(el) && el !== null) {
+          ref.current.push(el);
+        }
       }}
       onDragOver={(e) => {
         e.preventDefault();
