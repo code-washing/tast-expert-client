@@ -6,9 +6,11 @@ import CreateTaskForm from "./CreateTaskForm/CreateTaskForm";
 
 // hook
 import useTasks from "../../../hooks/useTasks";
-
 import useTaskSeparator from "../../../hooks/useTaskSeparator";
 import useTasksQuery from "../../../hooks/useTasksQuery";
+
+// provider
+import DragDropProvider from "../../../providers/DragDropProvider";
 
 // redux
 import { useSelector } from "react-redux";
@@ -42,7 +44,9 @@ const TaskManagement = () => {
       {/* task count */}
       <section>
         <InnerContainer>
-          <AllTasksContainer tasksData={tasksByStatus} />
+          <DragDropProvider>
+            <AllTasksContainer tasksData={tasksByStatus} />
+          </DragDropProvider>
         </InnerContainer>
       </section>
     </div>
