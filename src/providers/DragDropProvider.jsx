@@ -7,39 +7,80 @@ export const DragDropContext = createContext();
 
 const DragDropProvider = ({ children }) => {
   const containerRefs = useRef([]);
-  const [pointerX, setPointerX] = useState(0);
-  const [pointerY, setPointerY] = useState(0);
+  const [containers, setContainers] = useState([]);
+  const [draggedElId, setDraggedElId] = useState(null);
+
+  const findPositions = useCallback((refs) => {
+    return refs.current.map((el) => {
+      const id = el.id.toLowerCase();
+      const { top, right, bottom, left } = el.getBoundingClientRect();
+
+      return {
+        id,
+        positions: {
+          top: top,
+          right: right,
+          bottom: bottom,
+          left: left,
+        },
+      };
+    });
+  }, []);
+
+  // test
 
   // useEffect
   useEffect(() => {
-    if (containerRefs.current.length > 0) {
-      containerRefs.current.forEach((value) => {});
-    }
-  }, []);
+    setContainers(findPositions(containerRefs));
+  }, [containerRefs]);
 
-  const collectPositions = useCallback((ref, el) => {
-    if (!ref.current.includes(el) && el !== null) {
-      const { top, right, bottom, left } = el.getBoundingClientRect();
-      const id = el.id.toLowerCase();
-      ref.current.push({ id, position: { top, right, bottom, left } });
-    }
-  }, []);
+  const findDropContainer = (e, containers) => {
+    const touchX = e.changedTouches[0]?.clientX + window.pageXOffset;
+    const touchY = e.changedTouches[0]?.clientY + window.pageYOffset;
 
-  const findDropContainer = (e) => {
-    const touchX = e.changedTouches[0]?.clientX;
-    const touchY = e.changedTouches[0]?.clientY;
+    const currentDropContainer = containers.find((el) => {
+      return (
+        touchX >= el.positions.left &&
+        touchX <= el.positions.right &&
+        touchY >= el.positions.top &&
+        touchY <= el.positions.bottom
+      );
+    });
 
-    console.log([...new Set(containerRefs.current)]);
+    console.log(currentDropContainer);
   };
+
+  // const findDropContainer = (e, containers) => {
+  //   const touchX = e.changedTouches[0]?.clientX;
+  //   const touchY = e.changedTouches[0]?.clientY;
+
+  //   console.log("Touch Coordinates:", touchX, touchY);
+
+  //   const currentDropContainer = containers.find((el) => {
+  //     const isInside =
+  //       touchX >= el.positions.left &&
+  //       touchX <= el.positions.right &&
+  //       touchY >= el.positions.top &&
+  //       touchY <= el.positions.bottom;
+
+  //     console.log(`Container ${el.id}: ${isInside ? "Inside" : "Outside"}`);
+
+  //     return isInside;
+  //   });
+
+  //   if (currentDropContainer) {
+  //     console.log("Current Drop Container ID:", currentDropContainer.id);
+  //   } else {
+  //     console.log("No container found");
+  //   }
+  // };
 
   const valueObj = {
     containerRefs,
-    collectPositions,
-    pointerX,
-    pointerY,
-    setPointerX,
-    setPointerY,
+    containers,
+    findPositions,
     findDropContainer,
+    setDraggedElId,
   };
 
   return (
