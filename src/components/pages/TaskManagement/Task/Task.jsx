@@ -11,10 +11,12 @@ import Accordion from "../../../shared/Accordion/Accordion";
 // hook
 import useDragDrop from "../../../../hooks/useDragDrop";
 import useTasks from "../../../../hooks/useTasks";
-import useDragDropProvider from "./../../../../hooks/useDragDropProvider";
 
 // redux
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+// utils
+import { useTaskDragDropProvider } from "../../../../utlis/TaskDragDropUtils";
 
 const Task = ({ taskData }) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -22,9 +24,13 @@ const Task = ({ taskData }) => {
   const { _id, title, description, deadline, priority } = taskData;
   const { setDraggedElementId, setInitialCollection } = useDragDrop();
   const dispatch = useDispatch();
-  const { deleteTask } = useTasks();
-  const { findDropContainer, setDraggedElId, containers } =
-    useDragDropProvider();
+  const { deleteTask, updateTasks } = useTasks();
+  // const { findDropContainer, setDraggedElId, containers } =
+  //   useDragDropProvider();
+  const { tasks } = useSelector((store) => store.task);
+
+  const { findDropContainerId, containers, setUpdateCoordinates } =
+    useTaskDragDropProvider();
 
   const priorityColor =
     priority === "high"
@@ -37,6 +43,7 @@ const Task = ({ taskData }) => {
     <div
       draggable={true}
       onTouchStart={(e) => {
+        e.preventDefault();
         setIsDragging(true);
         dispatch(
           setInitialCollection(
@@ -44,13 +51,19 @@ const Task = ({ taskData }) => {
           )
         );
 
-        setDraggedElId(_id);
+        // setDraggedElId(_id);
       }}
       onTouchEnd={(e) => {
         e.preventDefault();
-        // console.log(e);
 
-        findDropContainer(e, containers);
+        const status = findDropContainerId(e, containers);
+
+        if (status) {
+          const updated = updateTasks(e, _id, status, tasks);
+          if (updated) {
+            setUpdateCoordinates(true);
+          }
+        }
 
         setIsDragging(false);
         dispatch(setDraggedElementId(null));
@@ -80,9 +93,8 @@ const Task = ({ taskData }) => {
         {/* delete button */}
         <button
           title="Delete Task"
-          onClick={() => {
-            deleteTask(_id);
-          }}
+          onClick={() => deleteTask(_id, tasks)}
+          onTouchStart={() => deleteTask(_id, tasks)}
           aria-label="Delete task"
           className="flex justify-center items-center px-[5px] py-[4px] group hover:bg-lightGray transition-all duration-default rounded-md"
         >
