@@ -9,11 +9,11 @@ import useTasks from "../../../hooks/useTasks";
 import useTaskSeparator from "../../../hooks/useTaskSeparator";
 import useTasksQuery from "../../../hooks/useTasksQuery";
 
-// provider
-import DragDropProvider from "../../../providers/DragDropProvider";
-
 // redux
 import { useSelector } from "react-redux";
+
+// utils
+import { TaskDragDropProvider } from "../../../utlis/TaskDragDropUtils";
 
 const TaskManagement = () => {
   const { closeCreateForm, sortToLatest } = useTasks();
@@ -41,12 +41,12 @@ const TaskManagement = () => {
         closeFunction={closeCreateForm}
       />
 
-      {/* task count */}
+      {/* all tasks container */}
       <section>
         <InnerContainer>
-          <DragDropProvider>
+          <TaskDragDropProvider>
             <AllTasksContainer tasksData={tasksByStatus} />
-          </DragDropProvider>
+          </TaskDragDropProvider>
         </InnerContainer>
       </section>
     </div>
