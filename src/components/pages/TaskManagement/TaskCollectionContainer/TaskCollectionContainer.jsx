@@ -1,23 +1,13 @@
 // react
 import PropTypes from "prop-types";
-
 import { forwardRef } from "react";
 
 // component
 import Task from "../Task/Task";
 
-// hook
-import useTasks from "../../../../hooks/useTasks";
-
-// redux
-import { useSelector } from "react-redux";
-
 /* eslint-disable react/display-name */
 const TaskCollectionContainer = forwardRef(({ taskCollectionData }, ref) => {
   const { name, tasks: tasksByStatus } = taskCollectionData;
-  const { updateTasks } = useTasks();
-  const { draggedElementId } = useSelector((store) => store.dragDrop);
-  const { tasks } = useSelector((store) => store.task);
 
   return (
     <div
@@ -30,14 +20,16 @@ const TaskCollectionContainer = forwardRef(({ taskCollectionData }, ref) => {
       onDragOver={(e) => {
         e.preventDefault();
       }}
-      onDrop={(e) => {
-        updateTasks(e, draggedElementId, tasks);
-      }}
       id={name}
       className="bg-white rounded-2xl p-elementGapSm drop-target"
     >
       <h3 className="font-semibold text-2xl pb-elementGapSm">{name}</h3>
-      <ul className="space-y-4">
+      <ul
+        onDragOver={(e) => {
+          e.preventDefault();
+        }}
+        className="space-y-4"
+      >
         {tasksByStatus?.length > 0 &&
           tasksByStatus.map((task) => {
             return (
