@@ -9,11 +9,10 @@ import { IoTrashSharp, IoChevronDownOutline } from "react-icons/io5";
 import Accordion from "../../../shared/Accordion/Accordion";
 
 // hook
-import useDragDrop from "../../../../hooks/useDragDrop";
 import useTasks from "../../../../hooks/useTasks";
 
 // redux
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 // utils
 import { useTaskDragDropProvider } from "../../../../utlis/TaskDragDropUtils";
@@ -22,15 +21,12 @@ const Task = ({ taskData }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const { _id, title, description, deadline, priority } = taskData;
-  const { setDraggedElementId, setInitialCollection } = useDragDrop();
-  const dispatch = useDispatch();
+
   const { deleteTask, updateTasks } = useTasks();
-  // const { findDropContainer, setDraggedElId, containers } =
-  //   useDragDropProvider();
+
   const { tasks } = useSelector((store) => store.task);
 
-  const { findDropContainerId, containers, setUpdateCoordinates } =
-    useTaskDragDropProvider();
+  const { findDropContainerId, dropContainersRef } = useTaskDragDropProvider();
 
   const priorityColor =
     priority === "high"
@@ -42,48 +38,34 @@ const Task = ({ taskData }) => {
   return (
     <div
       draggable={true}
-      onTouchStart={(e) => {
-        e.preventDefault();
+      onTouchStart={() => {
         setIsDragging(true);
-        dispatch(
-          setInitialCollection(
-            e.target.closest(".drop-target").id.toLowerCase()
-          )
-        );
-
-        // setDraggedElId(_id);
+        // make the website body temporarily unscrollable
+        document.body.style.overflowY = "hidden";
       }}
       onTouchEnd={(e) => {
-        e.preventDefault();
-
-        const status = findDropContainerId(e, containers);
-
+        const status = findDropContainerId(e, dropContainersRef, "touch");
+        // make the website body scrollable again
+        document.body.style.overflowY = "auto";
         if (status) {
-          const updated = updateTasks(e, _id, status, tasks);
-          if (updated) {
-            setUpdateCoordinates(true);
-          }
+          updateTasks(e, _id, status, tasks);
         }
-
         setIsDragging(false);
-        dispatch(setDraggedElementId(null));
       }}
-      onDragStart={(e) => {
+      onDragStart={() => {
         setIsDragging(true);
-        dispatch(
-          setInitialCollection(
-            e.target.closest(".drop-target").id.toLowerCase()
-          )
-        );
-        dispatch(setDraggedElementId(_id));
       }}
       onDragEnd={(e) => {
-        e.preventDefault();
+        const status = findDropContainerId(e, dropContainersRef, "mouse");
+        if (status) {
+          updateTasks(e, _id, status, tasks);
+        }
         setIsDragging(false);
-        dispatch(setDraggedElementId(null));
       }}
       className={`border border-lightBorder rounded-xl shadow-small px-4 text-[0.8rem] flex flex-col cursor-grab ${
-        isDragging ? "opacity-30 !cursor-grabbing" : "opacity-100"
+        isDragging
+          ? "opacity-30 !cursor-grabbing"
+          : "opacity-100 !cursor-pointer"
       }`}
     >
       {/* title and delete button */}
