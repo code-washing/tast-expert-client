@@ -62,7 +62,7 @@ const Task = ({ taskData }) => {
         }
         setIsDragging(false);
       }}
-      className={`border border-lightBorder rounded-xl shadow-small px-4 text-[0.8rem] flex flex-col cursor-grab ${
+      className={`border border-lightBorder bg-white rounded-xl shadow-small px-4 text-[0.8rem] flex flex-col cursor-grab ${
         isDragging
           ? "opacity-30 !cursor-grabbing"
           : "opacity-100 !cursor-pointer"

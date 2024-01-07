@@ -15,7 +15,7 @@ const AllTasksContainer = ({ tasksData, modifyClasses = "" }) => {
     <div className={`${modifyClasses}`}>
       <SectionHeading text="Tasks" />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-elementGapSm bg-lightGray p-elementGapSm  rounded-2xl">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-elementGapSm bg-lightBorder p-4 sm:p-elementGapSm rounded-2xl">
         {tasksData &&
           tasksData.map((singleCollection) => {
             return (
