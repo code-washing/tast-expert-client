@@ -64,7 +64,11 @@ export const createDragDropContext = () => {
           );
         });
 
-        if (!currentDropContainer) {
+        if (
+          !currentDropContainer ||
+          currentDropContainer.id ===
+            e.target.closest(".drop-target").id.toLowerCase()
+        ) {
           return undefined;
         }
         return currentDropContainer.id;
