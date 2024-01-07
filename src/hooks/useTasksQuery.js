@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 // redux
 import { useDispatch } from "react-redux";
-import { setTasks } from "../features/task/taskSlice";
+import { setTasks, setLoading } from "../features/task/taskSlice";
 
 // custom hooks
 import useAuth from "./useAuth";
@@ -27,8 +27,13 @@ const useTasksQuery = () => {
   });
 
   useEffect(() => {
+    if (isLoading) {
+      dispatch(setLoading(true));
+    }
+
     if (!isLoading) {
       dispatch(setTasks(data));
+      dispatch(setLoading(false));
     }
   }, [dispatch, isLoading, data]);
 
