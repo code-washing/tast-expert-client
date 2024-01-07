@@ -1,4 +1,4 @@
-import { createDragDropContext } from "../providers/ReusableDragDropProvider";
+import { createDragDropContext } from "../libs/ReusableDragDropProvider";
 
 export const {
   Provider: TaskDragDropProvider,
