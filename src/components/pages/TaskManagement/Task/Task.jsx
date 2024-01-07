@@ -48,7 +48,7 @@ const Task = ({ taskData }) => {
         // make the website body scrollable again
         document.body.style.overflowY = "auto";
         if (status) {
-          updateTasks(e, _id, status, tasks);
+          updateTasks(_id, status, tasks);
         }
         setIsDragging(false);
       }}
@@ -58,7 +58,7 @@ const Task = ({ taskData }) => {
       onDragEnd={(e) => {
         const status = findDropContainerId(e, dropContainersRef, "mouse");
         if (status) {
-          updateTasks(e, _id, status, tasks);
+          updateTasks(_id, status, tasks);
         }
         setIsDragging(false);
       }}

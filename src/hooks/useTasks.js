@@ -44,15 +44,14 @@ const useTasks = () => {
     return sortedArr;
   };
 
-  const updateTasks = async (e, draggedTaskId, tasks) => {
-    //  find the container id to move to (todo/ongoing/completed)
-    const status = e.target.closest(".drop-target").id.toLowerCase();
+  const updateTasks = async (draggedTaskId, updatedStatus, tasks) => {
+    // find latest time
     const lastUpdated = new Date().toISOString();
 
     // create a new array
     const updatedTasks = tasks.map((task) => {
       return task._id === draggedTaskId
-        ? { ...task, status, lastUpdated }
+        ? { ...task, status: updatedStatus, lastUpdated }
         : task;
     });
 
@@ -62,7 +61,7 @@ const useTasks = () => {
     // send the update information to the database
     const updatedTask = {
       _id: draggedTaskId,
-      status,
+      status: updatedStatus,
       lastUpdated,
     };
 
@@ -75,11 +74,16 @@ const useTasks = () => {
     if (res.data.success) {
       showToast("Tasks Updated Successfully", "success");
       dispatch(setTasks(res.data.updatedTasks));
-      return;
+      return true;
     }
+
+    return false;
   };
 
-  const deleteTask = async (_id) => {
+  const deleteTask = async (_id, tasks) => {
+    const remainingTasks = tasks.filter((task) => task._id !== _id);
+    dispatch(setTasks(remainingTasks));
+
     const res = await axiosCustom.delete(
       `/tasks/delete/${_id}?email=${profileData.email}`
     );
