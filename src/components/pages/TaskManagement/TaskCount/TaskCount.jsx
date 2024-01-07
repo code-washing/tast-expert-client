@@ -11,18 +11,23 @@ import {
 // components
 import SectionHeading from "../../../shared/SectionHeading/SectionHeading";
 import CreateBtn from "./../../../shared/CreateBtn/CreateBtn";
+import LoadingSpinner from "../../../shared/LoadingSpinner/LoadingSpinner";
 
 // hooks
 import useTasks from "./../../../../hooks/useTasks";
+
+// redux
+import { useSelector } from "react-redux";
 
 const TaskCount = ({ tasksData = null, modifyClasses = "" }) => {
   const { openCreateForm } = useTasks();
   const todoTasksCount = tasksData && tasksData[0]?.tasks?.length;
   const ongoingTasksCount = tasksData && tasksData[1]?.tasks?.length;
   const completedTaksCount = tasksData && tasksData[2]?.tasks?.length;
+  const { loading } = useSelector((store) => store.task);
 
   // styles
-  const mainBoxStyles = "w-[10rem] aspect-square p-4 rounded-2xl bg-white";
+  const mainBoxStyles = "w-full p-4 rounded-2xl bg-white";
   const iconBoxStyles = "p-2 w-max rounded-lg mb-elementGapSm";
   const iconStyles = "text-xl";
   const textBoxStyles = "font-semibold";
@@ -37,7 +42,7 @@ const TaskCount = ({ tasksData = null, modifyClasses = "" }) => {
         {/* inner container */}
 
         <div className="flex flex-col gap-elementGapMd lg:flex-row items-start lg:justify-between">
-          <div className="overflow-x-auto rounded-2xl p-elementGapSm bg-lightGray flex flex-col sm:flex-row gap-elementGapSm w-max">
+          <div className="w-full lg:w-[70%] xl:w-[50%] rounded-2xl p-elementGapSm bg-lightBorder grid grid-cols-1 md:grid-cols-3 gap-elementGapSm ">
             {/* to-do */}
             <div className={mainBoxStyles}>
               {/* icon */}
@@ -47,8 +52,19 @@ const TaskCount = ({ tasksData = null, modifyClasses = "" }) => {
 
               <div className={textBoxStyles}>
                 <p className={statusTextStyles}>Remaining</p>
-                <p className={numberTextStyles}>{todoTasksCount}</p>
-                <p className={afterNumberTextStyles}>Task</p>
+                {loading && (
+                  <LoadingSpinner
+                    onlyLoader={true}
+                    modifyClasses="pt-3 text-2xl"
+                  />
+                )}
+
+                {!loading && (
+                  <>
+                    <p className={numberTextStyles}>{todoTasksCount}</p>
+                    <p className={afterNumberTextStyles}>Task</p>
+                  </>
+                )}
               </div>
             </div>
 
@@ -63,8 +79,18 @@ const TaskCount = ({ tasksData = null, modifyClasses = "" }) => {
 
               <div className={textBoxStyles}>
                 <p className={statusTextStyles}>Ongoing</p>
-                <p className={numberTextStyles}>{ongoingTasksCount}</p>
-                <p className={afterNumberTextStyles}>Task</p>
+                {loading && (
+                  <LoadingSpinner
+                    onlyLoader={true}
+                    modifyClasses="pt-3 text-2xl"
+                  />
+                )}
+                {!loading && (
+                  <>
+                    <p className={numberTextStyles}>{ongoingTasksCount}</p>
+                    <p className={afterNumberTextStyles}>Task</p>
+                  </>
+                )}
               </div>
             </div>
 
@@ -77,8 +103,19 @@ const TaskCount = ({ tasksData = null, modifyClasses = "" }) => {
 
               <div className={textBoxStyles}>
                 <p className={statusTextStyles}>Completed</p>
-                <p className={numberTextStyles}>{completedTaksCount}</p>
-                <p className={afterNumberTextStyles}>Task</p>
+                {loading && (
+                  <LoadingSpinner
+                    onlyLoader={true}
+                    modifyClasses="pt-3 text-2xl"
+                  />
+                )}
+
+                {!loading && (
+                  <>
+                    <p className={numberTextStyles}>{completedTaksCount}</p>
+                    <p className={afterNumberTextStyles}>Task</p>
+                  </>
+                )}
               </div>
             </div>
           </div>

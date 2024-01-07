@@ -2,35 +2,24 @@
 import PropTypes from "prop-types";
 
 // react icons
-import { LiaSpinnerSolid } from "react-icons/lia";
+import { ImSpinner8 } from "react-icons/im";
 
 const LoadingSpinner = ({
   text = "Loading",
-  fullscreen = false,
-  fullHeight = false,
   modifyClasses = "",
-  textSizeClasses = null,
   onlyLoader = false,
 }) => {
-  const textSize = textSizeClasses ?? "text-3xl";
-
   return (
-    <div
-      className={`${
-        fullscreen ? "min-h-screen" : fullHeight ? "h-full" : "min-h-[30rem]"
-      } ${modifyClasses}`}
-    >
-      <div
-        className={`${
-          fullscreen ? "min-h-screen" : "h-full"
-        }  flex justify-center items-center p-8`}
-      >
-        <div className="flex items-center gap-3">
-          {!onlyLoader && <span className={`block ${textSize}`}>{text}</span>}
-          <LiaSpinnerSolid
-            className={`text-primaryLight animate-spin ${textSize}`}
-          />
-        </div>
+    <div className={`${modifyClasses}`}>
+      <div className="flex flex-col md:flex-row justify-center items-center gap-3">
+        {/* text */}
+        {!onlyLoader && <div style={{ fontSize: "inherit" }}>{text}</div>}
+
+        {/* loading spinner */}
+        <ImSpinner8
+          style={{ fontSize: "inherit" }}
+          className="text-primaryLight animate-spin font-bold"
+        />
       </div>
     </div>
   );
@@ -39,10 +28,7 @@ const LoadingSpinner = ({
 LoadingSpinner.propTypes = {
   text: PropTypes.string,
   onlyLoader: PropTypes.bool,
-  textSizeClasses: PropTypes.string,
   modifyClasses: PropTypes.string,
-  fullscreen: PropTypes.bool,
-  fullHeight: PropTypes.bool,
 };
 
 export default LoadingSpinner;
