@@ -6,6 +6,7 @@ import BrandLogo from "./../BrandLogo/BrandLogo";
 import InnerContainer from "../../containers/InnerContainer/InnerContainer";
 import MobileNav from "./../MobileNav/MobileNav";
 import LinkBtn from "../LinkBtn/LinkBtn";
+import LoadingSpinner from "./../LoadingSpinner/LoadingSpinner";
 
 // hooks
 import useAuth from "./../../../hooks/useAuth";
@@ -31,6 +32,14 @@ const Header = ({ modifyClasses = "" }) => {
 
           {/* auth related options login/logout etc */}
           <div className="flex items-center gap-3 justify-self-center sm:justify-self-end">
+            {appLoading && (
+              <LoadingSpinner
+                text="Checking User"
+                modifyClasses="text-2xl pr-4 text-primary"
+                modifyInnerContainerClasses="!flex-row"
+              />
+            )}
+
             {!appLoading && !profileData && (
               <LinkBtn text="Sign In" url="/auth/login" />
             )}
