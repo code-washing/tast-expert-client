@@ -32,6 +32,7 @@ const Header = ({ modifyClasses = "" }) => {
 
           {/* auth related options login/logout etc */}
           <div className="flex items-center gap-3 justify-self-center sm:justify-self-end">
+            {/* loading Spinner */}
             {appLoading && (
               <LoadingSpinner
                 text="Checking User"

@@ -83,7 +83,7 @@ const Footer = () => {
         {/* copyright part */}
         <div className="text-center">
           <small className="text-white 2xl:text-lg">
-            &copy; {currentYear} Task Expert Inc., developed by Nashiuz Zaman
+            &copy; {currentYear} Task Expert Inc., Developed by Nashiuz Zaman
           </small>
         </div>
       </InnerContainer>
