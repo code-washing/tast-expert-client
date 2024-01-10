@@ -24,13 +24,18 @@ const RegistrationFormWithImage = ({ imageSource, appLoading }) => {
         <img
           className="w-full h-full object-cover"
           src={imageSource}
-          alt="GardenView apartments"
+          alt="cover image"
         />
       </div>
 
       {/* Registration form */}
       <div className="w-full">
-        {appLoading && <LoadingSpinner fullHeight={true} text="Registering" />}
+        {appLoading && (
+          <LoadingSpinner
+            modifyClasses="h-full flex justify-center items-enter text-xl"
+            text="Registering"
+          />
+        )}
         {!appLoading && !userAlreadyRegistered && <RegistrationForm />}
 
         {/* if user exists then show the user exists message */}

@@ -15,13 +15,18 @@ const LoginFormWithImage = ({ imageSource, appLoading }) => {
         <img
           className="h-full object-cover"
           src={imageSource}
-          alt="GardenView apartments"
+          alt="cover image"
         />
       </div>
 
       {/* login form */}
       <div className="w-full">
-        {appLoading && <LoadingSpinner fullHeight={true} text="Logging in" />}
+        {appLoading && (
+          <LoadingSpinner
+            modifyClasses="h-full flex justify-center items-enter text-xl"
+            text="Logging in"
+          />
+        )}
         {!appLoading && <LoginForm />}
       </div>
     </div>
