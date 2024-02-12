@@ -7,14 +7,18 @@ import InnerContainer from "../../containers/InnerContainer/InnerContainer";
 import LoginFormWithImage from "./LoginFormWithImage/LoginFormWithImage";
 
 // hooks
-import useAuth from "../../../hooks/useAuth";
 import useRedirectDashboard from "../../../hooks/useRedirectDashboard";
+
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { setLoginErrors } from "../../../features/auth/authSlice";
 
 // data
 import { authImage } from "./../../../uiData/authUiContent";
 
 const LoginPage = () => {
-  const { appLoading, dispatch, setLoginErrors, profileData } = useAuth();
+  const dispatch = useDispatch();
+  const { appLoading, profileData } = useSelector(store => store.auth);
   const { state } = useLocation();
   useRedirectDashboard(profileData, state);
 
@@ -22,7 +26,7 @@ const LoginPage = () => {
     return () => {
       dispatch(setLoginErrors([]));
     };
-  }, [setLoginErrors, dispatch]);
+  }, [dispatch]);
 
   return (
     <div className="min-h-screen flex justify-center items-center py-sectionGapSm md:py-sectionGapMd lg:py-sectionGapSm">

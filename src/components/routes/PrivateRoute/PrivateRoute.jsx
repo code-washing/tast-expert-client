@@ -5,12 +5,11 @@ import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-// custom hooks
-import useAuth from "../../../hooks/useAuth";
+// redux
+import { useSelector } from "react-redux";
 
 const PrivateRoute = ({ children }) => {
-  // extract the user state from context
-  const { profileData, appLoading } = useAuth();
+  const { profileData, appLoading } = useSelector(store => store.auth);
 
   // find out which route the user was originally going to
   const { pathname } = useLocation();

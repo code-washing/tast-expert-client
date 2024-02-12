@@ -9,24 +9,26 @@ import SectionHeading from "../../../shared/SectionHeading/SectionHeading";
 import ButtonBtn from "../../../shared/ButtonBtn/ButtonBtn";
 
 // custom hooks
-import useAuth from "./../../../../hooks/useAuth";
 import useTasks from "../../../../hooks/useTasks";
 import useEscapeClose from "../../../../hooks/useEscapeClose";
 
+// redux
+import { useSelector } from "react-redux";
+
 const CreateTaskForm = ({ openState = false, closeFunction = null }) => {
+  const { profileData } = useSelector(store => store.auth);
+  const { createTask } = useTasks();
+
   // add support for escape button close
   useEscapeClose(closeFunction);
-  // form element css classes
+
+  // common css classes
   const labelClasses = "block mb-2 text-sm lg:text-lg";
   const inputClasses =
     "block rounded-default !w-full text-sm lg:text-base p-1 md:p-2 font-inherit bg-lightGray";
 
-  // take the user's email from auth
-  const { profileData } = useAuth();
-  const { createTask } = useTasks();
-
   // all form values come from their inputs but date comes from the state
-  const handleCreateTask = (e) => {
+  const handleCreateTask = e => {
     e.preventDefault();
 
     // take all the necessary values
@@ -58,8 +60,7 @@ const CreateTaskForm = ({ openState = false, closeFunction = null }) => {
       <div
         className={`${
           openState ? "opacity-100 visible" : "opacity-0 collapse"
-        } shadow-large origin-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-8 bg-white z-40 lg:rounded-default w-full sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] duration-default`}
-      >
+        } shadow-large origin-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-8 bg-white z-40 lg:rounded-default w-full sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] duration-default`}>
         {/* close button */}
         <button className="block w-max ml-auto" onClick={closeFunction}>
           <AiOutlineClose className="text-2xl mb-4" />
@@ -85,8 +86,7 @@ const CreateTaskForm = ({ openState = false, closeFunction = null }) => {
             <textarea
               name="description"
               className={`${inputClasses} h-6 md:h-20`}
-              required
-            ></textarea>
+              required></textarea>
           </div>
 
           {/* deadline and priority */}
@@ -108,8 +108,7 @@ const CreateTaskForm = ({ openState = false, closeFunction = null }) => {
               <label className={labelClasses}>Priority</label>
               <select
                 className={`block w-full text-sm lg:text-base rounded-default p-[5px] md:p-[8.5px] lg:p-[9px] bg-lightGray`}
-                name="priority"
-              >
+                name="priority">
                 <option value="low">Low</option>
                 <option value="moderate">Moderate</option>
                 <option value="high">High</option>
