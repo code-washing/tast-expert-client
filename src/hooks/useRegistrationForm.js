@@ -16,16 +16,13 @@ const imageUploadAPI = `https://api.imgbb.com/1/upload?key=${imageUploadAPIKey}`
 
 // redux
 import { useDispatch } from "react-redux";
-import { authActions } from "../features/auth/authSlice";
-
-// extract auth actions
-const {
+import {
   setAppLoading,
   setUserAlreadyRegistered,
   setUserShouldExist,
   setProfileData,
   setRegistrationErrors,
-} = authActions;
+} from "../features/auth/authSlice";
 
 // custom hook body starts here
 const useRegistrationForm = () => {
