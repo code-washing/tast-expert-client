@@ -3,32 +3,24 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 // custom hook
-import useAuth from "./useAuth";
-// import useLoginRegistrationProvider from "./useLoginRegistrationProvider";
+import useFirebaseMethods from "./useFirebaseMethods";
 import useAxios from "./useAxios";
 import useToast from "./useToast";
 
+// redux
+import { useDispatch } from "react-redux";
+import {
+  setAppLoading,
+  setUserShouldExist,
+  setProfileData,
+  setLoginErrors,
+} from "../features/auth/authSlice";
+
 const useLoginForm = () => {
-  // extract functions from auth context
-  const {
-    dispatch,
-    loginEmail,
-    setAppLoading,
-    loginGoogle,
-    setUserShouldExist,
-    setProfileData,
-    loginErrors,
-    setLoginErrors,
-  } = useAuth();
-
-  // react toastify
+  const dispatch = useDispatch();
+  const { loginEmail, loginGoogle } = useFirebaseMethods();
   const { showToast } = useToast();
-
-  // axios
   const { axiosCustom } = useAxios();
-
-  // // extract different login and registration related states from this hook
-  // const { loginInfo, setLoginInfo } = useLoginRegistrationProvider();
 
   // create the navigation function
   const navigate = useNavigate();
@@ -36,7 +28,7 @@ const useLoginForm = () => {
   // extract state value from use location hook
   const { state } = useLocation();
 
-  const validateInputs = (inputs) => {
+  const validateInputs = inputs => {
     const { email, password } = inputs;
     const emailRegex = /[a-z0-9._]+@[a-z0-9]+.[a-z]+/g;
 
@@ -95,7 +87,7 @@ const useLoginForm = () => {
   };
 
   // handle normal login
-  const handleLoginEmail = async (e) => {
+  const handleLoginEmail = async e => {
     e.preventDefault();
     // reset errors
     dispatch(setLoginErrors([]));
@@ -150,9 +142,6 @@ const useLoginForm = () => {
   };
 
   return {
-    dispatch,
-    loginErrors,
-    setLoginErrors,
     handleLoginEmail,
     handleLoginGoogle,
   };

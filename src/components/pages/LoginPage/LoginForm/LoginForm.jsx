@@ -1,23 +1,27 @@
 // react imports
-import PropTypes from "prop-types";
 import { useState } from "react";
-
-// react icons
-import { IoEye, IoEyeOff } from "react-icons/io5";
+import PropTypes from "prop-types";
 
 // react router import
 import { Link } from "react-router-dom";
 
-// shared component imports
+// component
 import ButtonBtn from "../../../shared/ButtonBtn/ButtonBtn";
 import GoogleLoginBtn from "../../../shared/GoogleLoginBtn/GoogleLoginBtn";
 
-// custom hooks
+// hooks
 import useLoginForm from "../../../../hooks/useLoginForm";
 
+// react icons
+import { IoEye, IoEyeOff } from "react-icons/io5";
+
+// redux
+import { useSelector } from "react-redux";
+
 const LoginForm = ({ modifyClasses }) => {
-  const { loginErrors, handleLoginEmail, handleLoginGoogle } = useLoginForm();
   const [showPassword, setShowPassword] = useState(false);
+  const { loginErrors } = useSelector(store => store.auth);
+  const { handleLoginEmail, handleLoginGoogle } = useLoginForm();
 
   // common styles for input and label jsx elements
   const inputClasses =
@@ -25,8 +29,7 @@ const LoginForm = ({ modifyClasses }) => {
 
   return (
     <div
-      className={`w-full mx-auto py-12 px-5 xsm:px-8 sm:px-10 2md:px-12 lg:px-10 ${modifyClasses}`}
-    >
+      className={`w-full mx-auto py-12 px-5 xsm:px-8 sm:px-10 2md:px-12 lg:px-10 ${modifyClasses}`}>
       {/* heading */}
       <h2 className="capitalize mb-elementGapSm text-center text-2xl">
         Login to your account
@@ -60,11 +63,10 @@ const LoginForm = ({ modifyClasses }) => {
             aria-label="Show or not show password button"
             type="button"
             className="block w-max absolute top-1/2 -translate-y-1/2 right-3 text-textPrimary"
-            onClick={(e) => {
+            onClick={e => {
               e.preventDefault();
-              setShowPassword((prev) => !prev);
-            }}
-          >
+              setShowPassword(prev => !prev);
+            }}>
             {showPassword ? (
               <IoEyeOff className="text-xl" />
             ) : (
@@ -75,12 +77,11 @@ const LoginForm = ({ modifyClasses }) => {
 
         {loginErrors?.length > 0 && (
           <div className="space-y-1 mt-4">
-            {loginErrors.map((error) => {
+            {loginErrors.map(error => {
               return (
                 <p
                   key={error}
-                  className="text-sm text-center font-semibold text-red-600"
-                >
+                  className="text-sm text-center font-semibold text-red-600">
                   * {error}
                 </p>
               );
