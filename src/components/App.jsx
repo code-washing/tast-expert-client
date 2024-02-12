@@ -1,18 +1,24 @@
-import PropTypes from "prop-types";
+// react router
+import { RouterProvider } from "react-router-dom";
+import router from "./../router/router";
+
+// components
+import BackdropBlur from "./shared/BackdropBlur/BackdropBlur";
+
+// hooks
+import useAuth from "../hooks/useAuth";
 
 // react toastify
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Slide } from "react-toastify";
 
-// components
-import BackdropBlur from "../shared/BackdropBlur/BackdropBlur";
-
 // redux
 import { useSelector } from "react-redux";
 
-const PrimaryComponent = ({ children }) => {
-  const { open } = useSelector((store) => store.backdrop);
+const App = () => {
+  useAuth();
+  const { open } = useSelector(store => store.backdrop);
 
   return (
     <div className="font-default min-h-screen flex flex-col max-w-[120rem] mx-auto overflow-x-hidden">
@@ -30,16 +36,14 @@ const PrimaryComponent = ({ children }) => {
         pauseOnHover
         theme="light"
       />
+
       {/* blur overlay in the page */}
       <BackdropBlur openState={open} />
 
-      {children}
+      {/* main app with the router */}
+      <RouterProvider router={router}></RouterProvider>
     </div>
   );
 };
 
-PrimaryComponent.propTypes = {
-  children: PropTypes.any,
-};
-
-export default PrimaryComponent;
+export default App;
