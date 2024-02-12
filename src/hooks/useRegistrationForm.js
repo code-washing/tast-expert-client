@@ -2,7 +2,8 @@
 import { useNavigate } from "react-router-dom";
 
 // custom hooks import
-import useAuth from "./useAuth";
+import useFirebaseMethods from "./useFirebaseMethods";
+
 // import useLoginRegistrationProvider from "./useLoginRegistrationProvider";
 import useAxios from "./../hooks/useAxios";
 
@@ -13,33 +14,30 @@ import axios from "axios";
 const imageUploadAPIKey = import.meta.env.VITE_imgbbApiKey;
 const imageUploadAPI = `https://api.imgbb.com/1/upload?key=${imageUploadAPIKey}`;
 
+// redux
+import { useDispatch } from "react-redux";
+import { authActions } from "../features/auth/authSlice";
+
+// extract auth actions
+const {
+  setAppLoading,
+  setUserAlreadyRegistered,
+  setUserShouldExist,
+  setProfileData,
+  setRegistrationErrors,
+} = authActions;
+
 // custom hook body starts here
 const useRegistrationForm = () => {
-  // extract functions from auth context
-  const {
-    dispatch,
-    signup,
-    updateUserProfile,
-    setUserAlreadyRegistered,
-    setAppLoading,
-    setUserShouldExist,
-    setProfileData,
-    registrationErrors,
-    setRegistrationErrors,
-  } = useAuth();
+  // initial data and function extractions
+  const dispatch = useDispatch();
 
-  // axios extraction
+  const { signup, updateFirebaseProfile } = useFirebaseMethods();
   const { axiosCustom } = useAxios();
-
-  // // extract functions from login and registration context
-  // const { registrationInfo, setRegistrationInfo } =
-  //   useLoginRegistrationProvider();
-
-  // create the navigate function
   const navigate = useNavigate();
 
   // registration password validation
-  const validatePassword = (password) => {
+  const validatePassword = password => {
     const passwordErrors = [];
 
     const capitalLetterRegExp = /[A-Z]/;
@@ -60,7 +58,7 @@ const useRegistrationForm = () => {
     return passwordErrors;
   };
 
-  const validateInputs = (inputs) => {
+  const validateInputs = inputs => {
     const { userName, photo, email, password } = inputs;
     const emailRegex = /[a-z0-9._]+@[a-z0-9]+.[a-z]+/g;
 
@@ -90,7 +88,7 @@ const useRegistrationForm = () => {
   };
 
   // function to run when the form is submitted
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     // reset errors
     dispatch(setRegistrationErrors([]));
@@ -149,7 +147,7 @@ const useRegistrationForm = () => {
 
           if (signupResponse.user) {
             // if firebase sign up successful update the profile first
-            await updateUserProfile(
+            await updateFirebaseProfile(
               dataObject.userName,
               imageUploadResponse.data.data.display_url
             );
@@ -189,9 +187,6 @@ const useRegistrationForm = () => {
   };
 
   return {
-    dispatch,
-    registrationErrors,
-    setRegistrationErrors,
     handleSubmit,
   };
 };

@@ -35,6 +35,13 @@ const authSlice = createSlice({
   },
 });
 
-export default authSlice.reducer;
-
-export const authActions = authSlice.actions;
+const { reducer, actions } = authSlice;
+export default reducer;
+export const {
+  setUserShouldExist,
+  setUserAlreadyRegistered,
+  setProfileData,
+  setAppLoading,
+  setLoginErrors,
+  setRegistrationErrors,
+} = actions;

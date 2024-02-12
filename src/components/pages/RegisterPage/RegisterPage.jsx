@@ -6,15 +6,18 @@ import { useLocation } from "react-router-dom";
 import RegistrationFormWithImage from "./RegistrationFormWithImage/RegistrationFormWithImage";
 
 // hook
-import useAuth from "../../../hooks/useAuth";
 import useRedirectDashboard from "../../../hooks/useRedirectDashboard";
 
 // data
 import { authImage } from "../../../uiData/authUiContent";
 
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { setRegistrationErrors } from "../../../features/auth/authSlice";
+
 const RegisterPage = () => {
-  const { appLoading, dispatch, setRegistrationErrors, profileData } =
-    useAuth();
+  const dispatch = useDispatch();
+  const { appLoading, profileData } = useSelector(store => store.auth);
   const { state } = useLocation();
 
   //if user profile already exists then redirect to dashboard
@@ -24,7 +27,7 @@ const RegisterPage = () => {
     return () => {
       dispatch(setRegistrationErrors([]));
     };
-  }, [dispatch, setRegistrationErrors]);
+  }, [dispatch]);
 
   return (
     <div className="min-h-screen flex justify-center items-center py-sectionGapSm md:py-sectionGapMd lg:py-sectionGapSm">
