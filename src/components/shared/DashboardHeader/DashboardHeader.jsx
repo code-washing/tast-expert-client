@@ -8,19 +8,21 @@ import MobileNav from "./../MobileNav/MobileNav";
 import UserProfile from "./../UserProfile/UserProfile";
 
 // hooks
-import useAuth from "./../../../hooks/useAuth";
+import useFirebaseMethods from "../../../hooks/useFirebaseMethods";
+
+// redux
+import { useSelector } from "react-redux";
 
 // data
 import logoPrimary from "./../../../assets/websiteLogo/logo-primary.webp";
 
 const DashboardHeader = ({ modifyClasses = "" }) => {
-  // extra user from auth
-  const { profileData, appLoading, logout } = useAuth();
+  const { profileData, appLoading } = useSelector(store => store.auth);
+  const { logout } = useFirebaseMethods();
 
   return (
     <header
-      className={`py-elementGapMd border-b border-lightBorder ${modifyClasses}`}
-    >
+      className={`py-elementGapMd border-b border-lightBorder ${modifyClasses}`}>
       <InnerContainer>
         <div className="grid grid-cols-1 gap-elementGapMd sm:gap-0 sm:grid-cols-2 items-center">
           {/* website logo */}
