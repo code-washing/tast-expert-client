@@ -6,7 +6,11 @@ import useToast from "./useToast";
 
 // redux
 import { useDispatch } from "react-redux";
-import { authActions } from "../features/auth/authSlice";
+import {
+  setUserShouldExist,
+  setProfileData,
+  setAppLoading,
+} from "../features/auth/authSlice";
 
 // firebase
 import {
@@ -16,9 +20,6 @@ import {
   updateProfile,
   signInWithPopup,
 } from "firebase/auth";
-
-// take auth actions
-const { setUserShouldExist, setProfileData, setAppLoading } = authActions;
 
 // auth and google auth provider
 import { auth, googleAuthProvider } from "./useAuth";

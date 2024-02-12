@@ -2,25 +2,29 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-// react icons
-import { IoCloudUpload } from "react-icons/io5";
-import { IoEye, IoEyeOff } from "react-icons/io5";
-
-// react router import
+// react router
 import { Link } from "react-router-dom";
 
-// custom hooks import
-import useRegistrationForm from "../../../../hooks/useRegistrationForm";
-import useLoginForm from "../../../../hooks/useLoginForm";
-
-// shared component imports
+// components
 import ButtonBtn from "../../../shared/ButtonBtn/ButtonBtn";
 import GoogleLoginBtn from "../../../shared/GoogleLoginBtn/GoogleLoginBtn";
 import FileUploadBtn from "../../../shared/FileUploadBtn/FileUploadBtn";
 
+// hooks
+import useRegistrationForm from "../../../../hooks/useRegistrationForm";
+import useLoginForm from "../../../../hooks/useLoginForm";
+
+// react icons
+import { IoCloudUpload } from "react-icons/io5";
+import { IoEye, IoEyeOff } from "react-icons/io5";
+
+// redux
+import { useSelector } from "react-redux";
+
 const RegistrationForm = ({ modifyClasses }) => {
-  const { registrationErrors, handleSubmit } = useRegistrationForm();
   const [showPassword, setShowPassword] = useState(false);
+  const { handleSubmit } = useRegistrationForm();
+  const { registrationErrors } = useSelector(store => store.auth);
 
   // take the google login function from login hook
   const { handleLoginGoogle } = useLoginForm();
@@ -31,8 +35,7 @@ const RegistrationForm = ({ modifyClasses }) => {
 
   return (
     <div
-      className={`w-full mx-auto py-12 px-5 xsm:px-8 sm:px-10 2md:px-12 lg:px-10 ${modifyClasses}`}
-    >
+      className={`w-full mx-auto py-12 px-5 xsm:px-8 sm:px-10 2md:px-12 lg:px-10 ${modifyClasses}`}>
       {/* heading */}
       <h2 className="capitalize mb-elementGapSm text-center text-2xl font-semibold">
         Sign up. It&apos;s <span className="text-primary">Free!</span>
@@ -86,11 +89,10 @@ const RegistrationForm = ({ modifyClasses }) => {
             aria-label="Show or not show password button"
             type="button"
             className="block w-max absolute top-1/2 -translate-y-1/2 right-3 text-textPrimary"
-            onClick={(e) => {
+            onClick={e => {
               e.preventDefault();
-              setShowPassword((prev) => !prev);
-            }}
-          >
+              setShowPassword(prev => !prev);
+            }}>
             {showPassword ? (
               <IoEyeOff className="text-xl" />
             ) : (
@@ -102,12 +104,11 @@ const RegistrationForm = ({ modifyClasses }) => {
         {/* show errors here */}
         {registrationErrors?.length > 0 && (
           <div className="space-y-1 mt-4">
-            {registrationErrors.map((error) => {
+            {registrationErrors.map(error => {
               return (
                 <p
                   key={error}
-                  className="text-sm text-center font-semibold text-red-600"
-                >
+                  className="text-sm text-center font-semibold text-red-600">
                   * {error}
                 </p>
               );

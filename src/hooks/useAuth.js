@@ -1,14 +1,16 @@
 // react
 import { useEffect } from "react";
 
+// hook
+import useAxios from "./useAxios";
+
 // redux
 import { useDispatch, useSelector } from "react-redux";
-
-// auth actions
-import { authActions } from "../features/auth/authSlice";
-
-// axios
-import useAxios from "./useAxios";
+import {
+  setUserShouldExist,
+  setProfileData,
+  setAppLoading,
+} from "../features/auth/authSlice";
 
 // firebase imports
 import app from "../firebase/firebase.config";
@@ -17,9 +19,6 @@ import { getAuth, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth";
 // create auth & google provider instance
 export const auth = getAuth(app);
 export const googleAuthProvider = new GoogleAuthProvider();
-
-// take auth actions
-const { setUserShouldExist, setProfileData, setAppLoading } = authActions;
 
 const useAuth = () => {
   // declare dispatch function
