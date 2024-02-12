@@ -16,18 +16,20 @@ import ButtonBtn from "./../ButtonBtn/ButtonBtn";
 // hook
 import useMobileNavigation from "../../../hooks/useMobileNavigation";
 import useEscapeClose from "../../../hooks/useEscapeClose";
-import useAuth from "../../../hooks/useAuth";
+import useFirebaseMethods from "./../../../hooks/useFirebaseMethods";
 
-// must import data here to make this component work
+// redux
+import { useSelector } from "react-redux";
+
+// data
 import { navOptions } from "../../../uiData/navigationOptions";
-// white logo import
 import logoWhite from "./../../../assets/websiteLogo/logo-white.webp";
 
 const MobileNav = ({ modifyClasses = "" }) => {
-  // extract mobile nav functionality
+  const { profileData } = useSelector(store => store.auth);
   const { mobileNavOpen, openMobileNav, closeMobileNav } =
     useMobileNavigation();
-  const { profileData, logout } = useAuth();
+  const { logout } = useFirebaseMethods();
 
   // add escape key close functionality
   useEscapeClose(closeMobileNav);
@@ -44,8 +46,7 @@ const MobileNav = ({ modifyClasses = "" }) => {
       <nav
         className={`block h-screen fixed top-0 right-0 w-full sm:w-[50%] md:w-[40%] lg:w-[35%] 2xl:w-[20%] translate-x-full origin-center transition-all duration-default z-40 ${
           mobileNavOpen ? "!translate-x-0" : ""
-        } p-8 bg-gradient-to-br from-primaryDark to bg-primary ${modifyClasses}`}
-      >
+        } p-8 bg-gradient-to-br from-primaryDark to bg-primary ${modifyClasses}`}>
         {/* X cross button to close nav */}
         <MobileMenuCloseBtn clickHandler={closeMobileNav} />
 
@@ -59,7 +60,7 @@ const MobileNav = ({ modifyClasses = "" }) => {
         <ul className="flex flex-col gap-3">
           {/* this part will be always shown */}
           {navOptions &&
-            navOptions.map((option) => {
+            navOptions.map(option => {
               // if hashed link present then return this part, if not then return the next part
 
               // hashed link

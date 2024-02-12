@@ -8,15 +8,14 @@ import MobileNav from "./../MobileNav/MobileNav";
 import LinkBtn from "../LinkBtn/LinkBtn";
 import LoadingSpinner from "./../LoadingSpinner/LoadingSpinner";
 
-// hooks
-import useAuth from "./../../../hooks/useAuth";
+// redux
+import { useSelector } from "react-redux";
 
 // data
 import logoPrimary from "./../../../assets/websiteLogo/logo-primary.webp";
 
 const Header = ({ modifyClasses = "" }) => {
-  // extra user from auth
-  const { profileData, appLoading } = useAuth();
+  const { profileData, appLoading } = useSelector(store => store.auth);
 
   return (
     <header className={`py-elementGapMd ${modifyClasses}`}>
