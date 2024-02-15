@@ -1,21 +1,20 @@
 // react
 import { useEffect } from "react";
 
+// hooks
+import useAxios from "./useAxios";
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { setTasks, setLoading } from "../features/task/taskSlice";
+
 // react query
 import { useQuery } from "@tanstack/react-query";
 
-// redux
-import { useDispatch } from "react-redux";
-import { setTasks, setLoading } from "../features/task/taskSlice";
-
-// custom hooks
-import useAuth from "./useAuth";
-import useAxios from "./useAxios";
-
 const useTasksQuery = () => {
-  const { profileData } = useAuth();
-  const { axiosCustom } = useAxios();
   const dispatch = useDispatch();
+  const { profileData } = useSelector(store => store.auth);
+  const { axiosCustom } = useAxios();
 
   // tanstack fetch get request
   const { data, isLoading } = useQuery({

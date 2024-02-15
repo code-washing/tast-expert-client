@@ -1,20 +1,18 @@
 // hook
 import useAxios from "./useAxios";
 import useToast from "./useToast";
-import useAuth from "./useAuth";
 
 // redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTasks, setCreateFormOpen } from "../features/task/taskSlice";
-
-// backdropslice methods
 import { setOpen } from "./../features/backdrop/backdropSlice";
 
 const useTasks = () => {
   const dispatch = useDispatch();
+  const { profileData } = useSelector(store => store.auth);
+
   const { axiosCustom } = useAxios();
   const { showToast } = useToast();
-  const { profileData } = useAuth();
 
   const openCreateForm = () => {
     dispatch(setCreateFormOpen(true));
@@ -26,7 +24,7 @@ const useTasks = () => {
     dispatch(setOpen(false));
   };
 
-  const createTask = async (newTaskInfo) => {
+  const createTask = async newTaskInfo => {
     const res = await axiosCustom.post(`/tasks`, newTaskInfo);
     if (res.data.success) {
       showToast("Todo Added Successfully", "success");
@@ -36,7 +34,7 @@ const useTasks = () => {
     return;
   };
 
-  const sortToLatest = (arr) => {
+  const sortToLatest = arr => {
     const sortedArr = [...arr].sort(
       (a, b) => new Date(a.lastUpdated) - new Date(b.lastUpdated)
     );
@@ -49,7 +47,7 @@ const useTasks = () => {
     const lastUpdated = new Date().toISOString();
 
     // create a new array
-    const updatedTasks = tasks.map((task) => {
+    const updatedTasks = tasks.map(task => {
       return task._id === draggedTaskId
         ? { ...task, status: updatedStatus, lastUpdated }
         : task;
@@ -81,7 +79,7 @@ const useTasks = () => {
   };
 
   const deleteTask = async (_id, tasks) => {
-    const remainingTasks = tasks.filter((task) => task._id !== _id);
+    const remainingTasks = tasks.filter(task => task._id !== _id);
     dispatch(setTasks(remainingTasks));
 
     const res = await axiosCustom.delete(
