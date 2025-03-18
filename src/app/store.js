@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+    
 // reducers
 import authReducer from "./../features/auth/authSlice";
 import mediaQueryReducer from "./../features/mediaQuery/mediaQuerySlice";
