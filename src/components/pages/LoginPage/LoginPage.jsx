@@ -1,7 +1,7 @@
 // react
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
+  
 // components
 import InnerContainer from "../../containers/InnerContainer/InnerContainer";
 import LoginFormWithImage from "./LoginFormWithImage/LoginFormWithImage";
