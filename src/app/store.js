@@ -7,7 +7,7 @@ import mobileNavReducer from "./../features/mobileNav/mobileNavSlice";
 import taskReducer from "./../features/task/taskSlice";
 import backdropReducer from "./../features/backdrop/backdropSlice";
 
-export const store = configureStore({
+export const store = configureStore({ 
   reducer: {
     auth: authReducer,
     mediaQuery: mediaQueryReducer,
