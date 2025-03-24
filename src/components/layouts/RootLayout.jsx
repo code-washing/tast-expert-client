@@ -9,8 +9,8 @@ function RootLayout() {
   return (
     <div>
       <Header modifyClasses="mb-sectionGapMd" />
-      <Outlet />
-      <Footer />
+      <Outlet /> 
+      <Footer /> 
     </div>
   );
 }
